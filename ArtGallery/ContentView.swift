@@ -8,9 +8,16 @@
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("authorization") var auth = false
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            switch auth {
+            case true:
+                CoreView()
+            case false:
+                LoginView()
+            }
+        }
     }
 }
 
