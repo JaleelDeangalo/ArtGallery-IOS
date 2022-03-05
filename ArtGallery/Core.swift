@@ -21,6 +21,8 @@ struct CoreView: View {
                         Text("Feed")
                     }
                 }
+                .navigationTitle("")
+                .navigationBarHidden(true)
             
             UploadView()
                 .tabItem {
@@ -28,7 +30,8 @@ struct CoreView: View {
                         Image(systemName: "plus")
                         Text("Upload")
                     }
-                }
+                }.navigationTitle("")
+                .navigationBarHidden(true)
             
             ProfileView()
                 .tabItem {
@@ -36,7 +39,8 @@ struct CoreView: View {
                         Image(systemName: "person")
                         Text("Profile")
                     }
-                }
+                }.navigationTitle("")
+                .navigationBarHidden(true)
             
         }
     }

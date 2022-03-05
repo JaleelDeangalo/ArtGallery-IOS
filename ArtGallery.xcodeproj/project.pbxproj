@@ -35,6 +35,7 @@
 		32157F1D27CF0C5800F4DFC5 /* CommentRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32157F1C27CF0C5800F4DFC5 /* CommentRepository.swift */; };
 		32157F1F27CF0C8E00F4DFC5 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32157F1E27CF0C8E00F4DFC5 /* CommentViewModel.swift */; };
 		32157F2127CF179500F4DFC5 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32157F2027CF179500F4DFC5 /* Comments.swift */; };
+		3218DE6727D2FAD8004309FC /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218DE6627D2FAD8004309FC /* FirebaseManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -65,6 +66,8 @@
 		32157F1C27CF0C5800F4DFC5 /* CommentRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentRepository.swift; sourceTree = "<group>"; };
 		32157F1E27CF0C8E00F4DFC5 /* CommentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentViewModel.swift; sourceTree = "<group>"; };
 		32157F2027CF179500F4DFC5 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
+		3218DE6527D2FABD004309FC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3218DE6627D2FAD8004309FC /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +102,7 @@
 		32157EDD27CEF92E00F4DFC5 /* ArtGallery */ = {
 			isa = PBXGroup;
 			children = (
+				3218DE6527D2FABD004309FC /* GoogleService-Info.plist */,
 				32157EF727CEFBA600F4DFC5 /* networking */,
 				32157EF627CEFB9900F4DFC5 /* models */,
 				32157EF527CEFB9000F4DFC5 /* viewmodels */,
@@ -165,6 +169,7 @@
 				32157F1627CF072900F4DFC5 /* UploadRepository.swift */,
 				32157F1A27CF098900F4DFC5 /* ProfileRepository.swift */,
 				32157F1C27CF0C5800F4DFC5 /* CommentRepository.swift */,
+				3218DE6627D2FAD8004309FC /* FirebaseManager.swift */,
 			);
 			path = networking;
 			sourceTree = "<group>";
@@ -264,6 +269,7 @@
 				32157F1D27CF0C5800F4DFC5 /* CommentRepository.swift in Sources */,
 				32157F1727CF072900F4DFC5 /* UploadRepository.swift in Sources */,
 				32157EE127CEF92E00F4DFC5 /* ContentView.swift in Sources */,
+				3218DE6727D2FAD8004309FC /* FirebaseManager.swift in Sources */,
 				32157F0F27CEFDD000F4DFC5 /* Comment.swift in Sources */,
 				32157F0327CEFC1A00F4DFC5 /* AuthViewModel.swift in Sources */,
 				32157EDF27CEF92E00F4DFC5 /* ArtGalleryApp.swift in Sources */,

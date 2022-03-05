@@ -18,7 +18,7 @@ final class AuthViewModel: ObservableObject {
         
         do {
             let data = try await AuthRepository.shared.login(email: email, password: password)
-            token = data.jwt
+            token = data.token
             auth = true
         } catch {
             print(error)
@@ -31,7 +31,7 @@ final class AuthViewModel: ObservableObject {
         
         do {
             let data = try await AuthRepository.shared.signup(username: username, email: email, password: password)
-            token = data.jwt
+            token = data.token
             auth = true
         } catch {
             print(error)

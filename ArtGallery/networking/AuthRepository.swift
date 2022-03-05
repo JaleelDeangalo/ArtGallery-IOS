@@ -24,7 +24,7 @@ struct AuthRepository {
     }
     
     func login(email: String, password: String) async throws -> Token {
-        guard let url = URL(string: BASE_URL + "/login") else { throw ApiErrors.invalidURL }
+        guard let url = URL(string: BASE_URL + "/auth/login") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = POST
@@ -43,7 +43,7 @@ struct AuthRepository {
     }
     
     func signup(username: String, email: String, password: String) async throws -> Token {
-        guard let url = URL(string: BASE_URL + "/signup") else { throw ApiErrors.invalidURL }
+        guard let url = URL(string: BASE_URL + "/auth/signup") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = POST

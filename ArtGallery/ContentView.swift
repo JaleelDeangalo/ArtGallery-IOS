@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    @AppStorage("authorization") var auth = false
+    @AppStorage("Authorization") var auth = false
     var body: some View {
         NavigationView {
             switch auth {
@@ -17,7 +17,7 @@ struct ContentView: View {
             case false:
                 LoginView()
             }
-        }
+        }.navigationViewStyle(StackNavigationViewStyle())
     }
 }
 

@@ -18,8 +18,10 @@ struct Comment: Codable, Identifiable {
     
     enum CodiungKeys: String, CodingKey {
         case id = "_id"
-        case commentText, userId, postId
-        case likesCount
+        case commentText = "comment"
+        case userId = "user"
+        case postId = "postID"
+        case likesCount = "likes"
         case date
     }
 }

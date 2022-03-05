@@ -6,11 +6,37 @@
 //
 
 import SwiftUI
+import SDWebImageSwiftUI
 
 struct FeedView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @StateObject var viewModel = FeedViewModel()
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            HStack {
+                Text("Art Gallery").font(.subheadline)
+                
+                Spacer()
+                
+                Button(action:{}) {
+                    Image(systemName: "line.3.horizontal")
+                        .foregroundColor(.primary)
+                }
+            }.padding(.horizontal)
+            
+            ScrollView(showsIndicators: false) {
+                
+                LazyVStack {
+                    ForEach(viewModel.posts) { post in
+                            
+                        
+                    }
+                }
+            }
+        }.task {
+            
+        }
+      
     }
 }
 

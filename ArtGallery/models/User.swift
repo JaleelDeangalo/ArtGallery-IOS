@@ -17,11 +17,13 @@ struct User: Codable, Identifiable {
     let bio: String
     let followers: [String]
     let following: [String]
+    let myPosts: [Post]
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
         case username, email, password, bio, avatar
         case following, followers
+        case myPosts
     }
 }
 
@@ -44,5 +46,5 @@ struct SignupInput: Codable {
 }
 
 struct Token: Codable {
-    let jwt: String
+    let token: String
 }

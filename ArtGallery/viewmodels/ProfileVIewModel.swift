@@ -19,6 +19,12 @@ final class ProfileViewModel: ObservableObject {
     @Published var following: Int = 0
     
     
+    init() {
+        Task {
+            await getUser()
+        }
+    }
+    
     func getUser() async {
         do {
             let data = try await ProfileRepository.shared.getUser()

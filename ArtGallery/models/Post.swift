@@ -11,6 +11,8 @@ struct Post: Codable, Identifiable {
     
     let id: String
     let image: String
+    let username: String
+    let avatar: String
     let commentsCount: [String]
     let likesCount: [String]
     let postDescription: String
@@ -19,8 +21,13 @@ struct Post: Codable, Identifiable {
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
-        case commentsCount, likesCount
-        case title, userId, image, postDescription
+        case commentsCount = "comments"
+        case likesCount = "likes"
+        case title = "details"
+        case image
+        case userId = "user"
+        case postDescription = "description"
+        case username, avatar
     }
 }
 
