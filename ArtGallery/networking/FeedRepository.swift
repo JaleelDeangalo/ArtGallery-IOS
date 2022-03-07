@@ -114,4 +114,40 @@ struct FeedRepository {
         return try JSONDecoder().decode(Response.self, from: data)
     }
     
+    func likePost(id: String) async throws -> Response {
+        guard let url = URL(string: BASE_URL + "/post/like/\(id)") else { throw ApiErrors.invalidURL }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = POST
+        urlRequest.addValue(Value, forHTTPHeaderField: Headers)
+        urlRequest.addValue(token, forHTTPHeaderField: Authorization)
+        
+        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }
+        guard httpResponse.statusCode != 400 else { throw ApiErrors.badRequest400 }
+        guard httpResponse.statusCode != 401 else { throw ApiErrors.notAuthorized401 }
+        guard httpResponse.statusCode != 403 else { throw ApiErrors.forbidden403 }
+        guard httpResponse.statusCode != 404 else { throw ApiErrors.notFound404 }
+        guard httpResponse.statusCode != 500 else { throw ApiErrors.internalServerError500 }
+        return try JSONDecoder().decode(Response.self, from: data)
+    }
+    
+    func unlikePost(id: String) async throws -> Response {
+        guard let url = URL(string: BASE_URL + "/post/unlike/\(id)") else { throw ApiErrors.invalidURL }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = POST
+        urlRequest.addValue(Value, forHTTPHeaderField: Headers)
+        urlRequest.addValue(token, forHTTPHeaderField: Authorization)
+        
+        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }
+        guard httpResponse.statusCode != 400 else { throw ApiErrors.badRequest400 }
+        guard httpResponse.statusCode != 401 else { throw ApiErrors.notAuthorized401 }
+        guard httpResponse.statusCode != 403 else { throw ApiErrors.forbidden403 }
+        guard httpResponse.statusCode != 404 else { throw ApiErrors.notFound404 }
+        guard httpResponse.statusCode != 500 else { throw ApiErrors.internalServerError500 }
+        return try JSONDecoder().decode(Response.self, from: data)
+    }
+    
 }

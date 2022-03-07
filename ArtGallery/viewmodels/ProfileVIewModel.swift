@@ -6,12 +6,10 @@
 //
 
 import Foundation
-import SwiftUI
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
-    
-    @AppStorage("token") var token = ""
+
     @Published var username: String = ""
     @Published var avatar: String = ""
     @Published var bio: String = ""
@@ -28,11 +26,22 @@ final class ProfileViewModel: ObservableObject {
     func getUser() async {
         do {
             let data = try await ProfileRepository.shared.getUser()
-            username = data.username
-            avatar = data.avatar
-            bio = data.bio
-            followers = data.followers.count
-            following = data.following.count
+            self.username = data.username
+            self.avatar = data.avatar
+            self.bio = data.bio
+            self.followers = data.followers.count
+            self.following = data.following.count
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updateUser(email: String, username: String, avatar: String, bio: String) async {
+        do {
+            let data = try await ProfileRepository.shared.updateUser(email: email, username: username, avatar: avatar, bio: bio)
+            self.username = data.username
+            self.avatar = data.avatar
+            self.bio = data.bio
         } catch {
             print(error)
         }

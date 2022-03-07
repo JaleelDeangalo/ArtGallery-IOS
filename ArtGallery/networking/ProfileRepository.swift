@@ -28,7 +28,7 @@ struct ProfileRepository {
         guard let url = URL(string: BASE_URL + "/user") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = POST
+        urlRequest.httpMethod = GET
         urlRequest.addValue(Value, forHTTPHeaderField: Headers)
         urlRequest.addValue(token, forHTTPHeaderField: Authorization)
         
@@ -41,6 +41,24 @@ struct ProfileRepository {
         guard httpResponse.statusCode != 500 else { throw ApiErrors.internalServerError500 }
         return try JSONDecoder().decode(User.self, from: data)
         
+    }
+    
+    func updateUser(email: String?, username: String?, avatar: String?, bio: String?) async throws -> User {
+        guard let url = URL(string: BASE_URL + "/user") else { throw ApiErrors.invalidURL }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = PUT
+        urlRequest.addValue(Value, forHTTPHeaderField: Headers)
+        urlRequest.addValue(token, forHTTPHeaderField: Authorization)
+        urlRequest.httpBody = try JSONEncoder().encode(UserInput(newEmail: email ?? nil, newUsername: username ?? nil, newAvatar: avatar ?? nil, newBio: bio ?? nil))
+        let (data, response) = try await URLSession.shared.data(for: urlRequest)
+        guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }
+        guard httpResponse.statusCode != 400 else { throw ApiErrors.badRequest400 }
+        guard httpResponse.statusCode != 401 else { throw ApiErrors.notAuthorized401 }
+        guard httpResponse.statusCode != 403 else { throw ApiErrors.forbidden403 }
+        guard httpResponse.statusCode != 404 else { throw ApiErrors.notFound404 }
+        guard httpResponse.statusCode != 500 else { throw ApiErrors.internalServerError500 }
+        return try JSONDecoder().decode(User.self, from: data)
     }
     
 }

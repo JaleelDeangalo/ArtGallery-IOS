@@ -35,6 +35,4 @@ struct PostInput: Codable {
     let newImage: String?
     let newPostDescription: String?
     let newTitle: String?
-    let postId: String
-    let userId: String
 }

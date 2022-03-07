@@ -7,10 +7,47 @@
 
 import Foundation
 
+@MainActor
 final class CommentViewModel: ObservableObject {
     
-    @Published var comment: String = ""
-    @Published var userId: String = ""
+    @Published var comments: [Comment] = []
+    @Published var response: String = ""
+    
+    func readComments(postId: String) async {
+        do {
+            let data = try await CommentRepository.shared.readComments(postId: postId)
+            comments = data
+        } catch {
+            print(error)
+        }
+    }
+    
+    func postComment(postId: String, comment: String) async {
+        do {
+            let data = try await CommentRepository.shared.postComment(postId: postId, comment: comment)
+            response = data.Message
+        } catch {
+            print(error)
+        }
+    }
+    
+    func updateComment(postId: String, comment: String, commentId: String) async {
+        do {
+            let data = try await CommentRepository.shared.updateComment(postId: postId, comment: comment, commentId: commentId)
+            response = data.Message
+        } catch {
+            print(error)
+        }
+    }
+    
+    func deleteComment(postId: String, commentId: String) async {
+        do {
+            let data = try await CommentRepository.shared.deleteComment(postId: postId, commentId: commentId)
+            response = data.Message
+        } catch {
+            print(error)
+        }
+    }
     
     
 }

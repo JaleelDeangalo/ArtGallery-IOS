@@ -28,13 +28,28 @@ struct FeedView: View {
                 
                 LazyVStack {
                     ForEach(viewModel.posts) { post in
+                        
+                        HStack {
+                            WebImage(url: URL(string: post.avatar))
+                                .resizable()
+                                .frame(width: 30, height: 30)
+                                .aspectRatio(contentMode: .fill)
                             
+                            Spacer()
+                            
+                            Text(post.username)
+                            
+                        }
+                        
+                        WebImage(url: URL(string: post.image))
+                            .resizable()
+                            .frame(width: 100, height: 100, alignment: .center)
+                            .aspectRatio(contentMode: .fill)
+                    
                         
                     }
                 }
             }
-        }.task {
-            
         }
       
     }

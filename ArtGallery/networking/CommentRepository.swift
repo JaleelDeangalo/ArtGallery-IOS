@@ -45,13 +45,14 @@ struct CommentRepository {
     }
     
     
-    func postComment(postId: String) async throws -> Response {
+    func postComment(postId: String, comment: String) async throws -> Response {
         guard let url = URL(string: BASE_URL + "/comments/\(postId)") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = POST
         urlRequest.addValue(Value, forHTTPHeaderField: Headers)
         urlRequest.addValue(token, forHTTPHeaderField: Authorization)
+        urlRequest.httpBody = try JSONEncoder().encode(CommentInput(newComment: comment, newDate: .now))
         
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
@@ -66,13 +67,14 @@ struct CommentRepository {
     }
     
     
-    func updateComment(postId: String) async throws -> Response {
+    func updateComment(postId: String, comment: String, commentId: String) async throws -> Response {
         guard let url = URL(string: BASE_URL + "/comments/\(postId)") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = PUT
         urlRequest.addValue(Value, forHTTPHeaderField: Headers)
         urlRequest.addValue(token, forHTTPHeaderField: Authorization)
+        urlRequest.httpBody = try JSONEncoder().encode(CommentInput(newComment: comment, newDate: .now))
         
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         
@@ -87,7 +89,7 @@ struct CommentRepository {
     }
     
     
-    func deleteComment(postId: String) async throws -> Response {
+    func deleteComment(postId: String, commentId: String) async throws -> Response {
         guard let url = URL(string: BASE_URL + "/comments/\(postId)") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)

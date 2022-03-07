@@ -24,13 +24,30 @@ struct UploadRepository {
         case internalServerError500
     }
     
-    func uploadImage(newImage: String?, newPostDescription: String?, newTitle: String?, postId: String, userId: String) async throws -> Response {
+    
+    func uploadImage(newImage: String?, newPostDescription: String?, newTitle: String?, completion: @escaping ((Result<Response, Error>) -> Void)) {
+        
+        guard let url = URL(string: BASE_URL + "/post") else { return }
+        
+        var urlRequest = URLRequest(url: url)
+        urlRequest.httpMethod = POST
+        urlRequest.addValue(Value, forHTTPHeaderField: Headers)
+        urlRequest.httpBody = try? JSONEncoder().encode(PostInput(newImage: newImage, newPostDescription: newPostDescription, newTitle: newTitle))
+        
+        
+        URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            
+      
+        }.resume()
+    }
+    
+    func uploadImage(newImage: String?, newPostDescription: String?, newTitle: String?) async throws -> Response {
         guard let url = URL(string: BASE_URL + "/post") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = POST
         urlRequest.addValue(Value, forHTTPHeaderField: Headers)
-        urlRequest.httpBody = try JSONEncoder().encode(PostInput(newImage: newImage, newPostDescription: newPostDescription, newTitle: newTitle, postId: postId, userId: userId))
+        urlRequest.httpBody = try JSONEncoder().encode(PostInput(newImage: newImage, newPostDescription: newPostDescription, newTitle: newTitle))
         
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }

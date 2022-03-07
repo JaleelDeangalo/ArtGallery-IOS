@@ -36,6 +36,7 @@
 		32157F1F27CF0C8E00F4DFC5 /* CommentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32157F1E27CF0C8E00F4DFC5 /* CommentViewModel.swift */; };
 		32157F2127CF179500F4DFC5 /* Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32157F2027CF179500F4DFC5 /* Comments.swift */; };
 		3218DE6727D2FAD8004309FC /* FirebaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3218DE6627D2FAD8004309FC /* FirebaseManager.swift */; };
+		323EB95127D5A15000D6AD2A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323EB95027D5A15000D6AD2A /* ImagePicker.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,7 @@
 		32157F2027CF179500F4DFC5 /* Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comments.swift; sourceTree = "<group>"; };
 		3218DE6527D2FABD004309FC /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3218DE6627D2FAD8004309FC /* FirebaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseManager.swift; sourceTree = "<group>"; };
+		323EB95027D5A15000D6AD2A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +115,7 @@
 				32157EE427CEF93000F4DFC5 /* Preview Content */,
 				32157EF227CEFAB800F4DFC5 /* Core.swift */,
 				32157F1227CF00BB00F4DFC5 /* Constants.swift */,
+				323EB95027D5A15000D6AD2A /* ImagePicker.swift */,
 			);
 			path = ArtGallery;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 				32157F1B27CF098900F4DFC5 /* ProfileRepository.swift in Sources */,
 				32157EFB27CEFBD200F4DFC5 /* Upload.swift in Sources */,
 				32157EF927CEFBB800F4DFC5 /* Feed.swift in Sources */,
+				323EB95127D5A15000D6AD2A /* ImagePicker.swift in Sources */,
 				32157F0127CEFC0A00F4DFC5 /* Signup.swift in Sources */,
 				32157F1D27CF0C5800F4DFC5 /* CommentRepository.swift in Sources */,
 				32157F1727CF072900F4DFC5 /* UploadRepository.swift in Sources */,

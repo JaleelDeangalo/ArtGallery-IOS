@@ -12,18 +12,19 @@ struct User: Codable, Identifiable {
     let id: String
     let username: String
     let email: String
-    let password: String
     let avatar: String
     let bio: String
-    let followers: [String]
-    let following: [String]
-    let myPosts: [Post]
+    let followers: [String] = []
+    let following: [String] = []
+    let myPosts: [Post] = []
+    let date: String
     
     enum CodingKeys: String, CodingKey {
         case id = "_id"
-        case username, email, password, bio, avatar
+        case username, email, bio, avatar
         case following, followers
         case myPosts
+        case date
     }
 }
 
