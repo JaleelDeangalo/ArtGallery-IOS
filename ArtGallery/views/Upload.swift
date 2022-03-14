@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct UploadView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @StateObject var viewModel = UploadViewModel()
     @State private var isShowingPicker = false
     @State private var image: UIImage?
@@ -22,66 +23,98 @@ struct UploadView: View {
                     titleInput = ""
                     descriptionInput = ""
                 }) {
-                    Text("cancel")
-                        .foregroundColor(Color.primary)
+                    Image(systemName: "x.square")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(Color.red)
                 }
                 
                 Spacer()
                 
+                Text("Upload")
+                    .font(.headline)
+                    .padding(.top,3)
+                Spacer()
+                
                 Button(action:{
                     
+                    if image == nil {
+                        return
+                    }
+                    
+                    viewModel.uploadImage(image: image!, postDescription: descriptionInput, title: titleInput)
                 }) {
-                    Text("upload")
-                        .foregroundColor(Color.primary)
+                    Image(systemName: "checkmark")
+                        .resizable()
+                        .frame(width: 20, height: 20)
+                        .foregroundColor(Color.red)
                 }
             }
             .padding(.horizontal)
+            .padding(10)
+            .background(colorScheme == .light ? Color.white : Color.black)
             Spacer()
             TextField("Title", text: $titleInput)
                 .multilineTextAlignment(.center)
                 .padding()
-                .background(Color.black.opacity(0.05))
+                .background(colorScheme == .light ?  Color.black.opacity(0.05) : Color.white.opacity(0.05))
                 .cornerRadius(10)
                 .padding(.horizontal)
             
             Spacer()
-            if image != nil {
-                Image(uiImage: image!)
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 200, height: 200, alignment: .center)
-                    .padding()
-                    .onTapGesture {
-                        isShowingPicker = true
-                    }
-            } else {
-                Image(systemName: "plus")
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-                    .frame(width: 200, height: 200, alignment: .center)
-                    .padding()
-                    .onTapGesture {
-                        isShowingPicker = true
-                    }
+            
+            VStack {
                 
+                ZStack {
+                    if viewModel.isLoading {
+                        LoadingView()
+                    }
+                    if image != nil {
+                        Button(action:{ isShowingPicker = true }) {
+                            Image(uiImage: image!)
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 200, height: 200, alignment: .center)
+                                .padding()
+                        }
+                    } else {
+                        Button(action: { isShowingPicker = true }) {
+                            Image(systemName: "plus")
+                                .resizable()
+                                .aspectRatio(contentMode: .fill)
+                                .frame(width: 200, height: 200, alignment: .center)
+                                .padding()
+                                .foregroundColor(Color.primary)
+                        }
+                    }
+                }
+              
             }
+         
             
             Spacer()
            
             TextField("Description", text: $descriptionInput)
                 .multilineTextAlignment(.center)
                 .padding()
-                .background(Color.black.opacity(0.05))
+                .background(colorScheme == .light ?  Color.black.opacity(0.05) : Color.white.opacity(0.05))
                 .cornerRadius(10)
                 .padding(.horizontal)
             
             
             Spacer()
             
-        }.sheet(isPresented: $isShowingPicker, content: {
+        }.background(colorScheme == .light ?  Color.black.opacity(0.05) : Color.white.opacity(0.09))
+        .sheet(isPresented: $isShowingPicker, content: {
             ImagePicker(image: $image)
         })
 
+    }
+}
+
+struct LoadingView: View {
+    var body: some View {
+        ProgressView()
     }
 }
 

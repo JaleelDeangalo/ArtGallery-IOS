@@ -14,43 +14,106 @@ struct FeedView: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Art Gallery").font(.subheadline)
+                Text("Art Gallery")
+                    .font(.headline)
                 
                 Spacer()
                 
-                Button(action:{}) {
-                    Image(systemName: "line.3.horizontal")
-                        .foregroundColor(.primary)
+                HStack {
+                    Button(action:{}) {
+                        Image(systemName: "square.dashed")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(Color.red)
+                    }
+                   
+                    Button(action:{}) {
+                        Image(systemName: "square.dashed.inset.filled")
+                            .resizable()
+                            .frame(width: 25, height: 25)
+                            .foregroundColor(Color.red)
+                    }
+                   
                 }
-            }.padding(.horizontal)
+            }
+            .padding(.horizontal)
+            .padding(10)
+            .background(colorScheme == .light ? Color.white : Color.black)
+         
             
             ScrollView(showsIndicators: false) {
                 
                 LazyVStack {
                     ForEach(viewModel.posts) { post in
                         
-                        HStack {
-                            WebImage(url: URL(string: post.avatar))
-                                .resizable()
-                                .frame(width: 30, height: 30)
-                                .aspectRatio(contentMode: .fill)
+                        VStack {
+                            HStack(spacing: 10) {
+                                WebImage(url: URL(string: post.avatar))
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: 40, height: 40)
+                                    .clipShape(Circle())
+                                
+                                Text(post.username)
+                                
+                                Spacer()
+                                Button(action:{}) {
+                                    Image(systemName: "ellipsis.circle.fill")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundColor(Color.primary)
+                                        
+                                }
+                                
+                                
+                                
+                            }.frame(maxWidth: .infinity, alignment: .leading)
+                            .padding(.horizontal)
                             
-                            Spacer()
-                            
-                            Text(post.username)
-                            
-                        }
                         
-                        WebImage(url: URL(string: post.image))
-                            .resizable()
-                            .frame(width: 100, height: 100, alignment: .center)
-                            .aspectRatio(contentMode: .fill)
-                    
+                            
+                            WebImage(url: URL(string: post.image))
+                                .resizable()
+                                .frame(maxWidth: .infinity, alignment: .center)
+                                .aspectRatio(contentMode: .fill)
+                                .cornerRadius(10)
+                                .padding(.horizontal)
+                            
+                            HStack {
+                                Text(post.postDescription)
+                                    .font(.subheadline)
+                                Spacer()
+                                HStack(spacing: 8) {
+                                    Button(action:{}) {
+                                        Image(systemName: "heart")
+                                            .foregroundColor(Color.primary)
+                                    }
+                                    Text("0")
+                                    
+                                    NavigationLink(destination: CommentsView()) {
+                                        Image(systemName: "text.bubble")
+                                    }.foregroundColor(Color.primary)
+                                    Text("0")
+                                    
+                                }
+                               
+                            }.padding(.horizontal)
+                        }.padding()
+                            .background(colorScheme == .light ?  Color.black.opacity(0.05) : Color.white.opacity(0.09))
+                        .cornerRadius(10)
+                        .padding()
                         
                     }
                 }
             }
+        }.onAppear {
+            Task {
+                await viewModel.getPosts()
+            }
         }
+        .background(colorScheme == .light ? Color.black.opacity(0.05) :  Color.white.opacity(0.09))
+        
+            
       
     }
 }

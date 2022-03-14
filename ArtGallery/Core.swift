@@ -42,7 +42,7 @@ struct CoreView: View {
                 }.navigationTitle("")
                 .navigationBarHidden(true)
             
-        }
+        }.accentColor(Color.red)
     }
 }
 

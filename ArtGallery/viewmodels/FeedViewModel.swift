@@ -18,6 +18,7 @@ final class FeedViewModel: ObservableObject {
     @Published var currentUserFollower: [String] = []
     @Published var currentUserFollowing: [String] = []
     
+    
     init() {
         Task {
             await getPosts()
@@ -35,6 +36,8 @@ final class FeedViewModel: ObservableObject {
             print(error)
         }
     }
+    
+    
     func getPosts() async {
         do {
             let data = try await FeedRepository.shared.getPosts()
@@ -43,6 +46,7 @@ final class FeedViewModel: ObservableObject {
             print(error)
         }
     }
+    
     
     func getSelectedUser(id: String) async {
         do {
@@ -54,6 +58,7 @@ final class FeedViewModel: ObservableObject {
             print(error)
         }
     }
+    
     
     func followUser(id: String) async {
         do {
@@ -74,6 +79,7 @@ final class FeedViewModel: ObservableObject {
         }
     }
     
+    
     func likePost(id: String) async {
         do {
             let data = try await FeedRepository.shared.likePost(id: id)
@@ -82,6 +88,7 @@ final class FeedViewModel: ObservableObject {
             print(error)
         }
     }
+    
     
     func unlikePost(id: String) async {
         do {

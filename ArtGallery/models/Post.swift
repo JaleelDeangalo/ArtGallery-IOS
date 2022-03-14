@@ -24,15 +24,14 @@ struct Post: Codable, Identifiable {
         case commentsCount = "comments"
         case likesCount = "likes"
         case title = "details"
-        case image
         case userId = "user"
         case postDescription = "description"
-        case username, avatar
+        case username, avatar, image
     }
 }
 
 struct PostInput: Codable {
-    let newImage: String?
-    let newPostDescription: String?
-    let newTitle: String?
+    let image: String
+    let description: String
+    let details: String
 }
