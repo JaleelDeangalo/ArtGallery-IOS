@@ -9,6 +9,7 @@ import SwiftUI
 
 struct UploadView: View {
     @Environment(\.colorScheme) private var colorScheme
+    @EnvironmentObject var userViewModel: UserViewModel
     @StateObject var viewModel = UploadViewModel()
     @State private var isShowingPicker = false
     @State private var image: UIImage?
@@ -36,13 +37,14 @@ struct UploadView: View {
                     .padding(.top,3)
                 Spacer()
                 
-                Button(action:{
-                    
-                    if image == nil {
-                        return
-                    }
+                Button(action: {
+                    if image == nil { return }
                     
                     viewModel.uploadImage(image: image!, postDescription: descriptionInput, title: titleInput)
+                    
+                    image = nil
+                    titleInput = ""
+                    descriptionInput = ""
                 }) {
                     Image(systemName: "checkmark")
                         .resizable()
@@ -66,9 +68,7 @@ struct UploadView: View {
             VStack {
                 
                 ZStack {
-                    if viewModel.isLoading {
-                        LoadingView()
-                    }
+                    if viewModel.isLoading { LoadingView() }
                     if image != nil {
                         Button(action:{ isShowingPicker = true }) {
                             Image(uiImage: image!)
@@ -91,20 +91,19 @@ struct UploadView: View {
               
             }
          
-            
             Spacer()
            
             TextField("Description", text: $descriptionInput)
                 .multilineTextAlignment(.center)
                 .padding()
-                .background(colorScheme == .light ?  Color.black.opacity(0.05) : Color.white.opacity(0.05))
+                .background(colorScheme == .light ? Color.black.opacity(0.05) : Color.white.opacity(0.05))
                 .cornerRadius(10)
                 .padding(.horizontal)
             
             
             Spacer()
             
-        }.background(colorScheme == .light ?  Color.black.opacity(0.05) : Color.white.opacity(0.09))
+        }.background(colorScheme == .light ? Color.black.opacity(0.05) : Color.white.opacity(0.09))
         .sheet(isPresented: $isShowingPicker, content: {
             ImagePicker(image: $image)
         })

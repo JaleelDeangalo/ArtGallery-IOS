@@ -11,7 +11,10 @@ struct SignupView: View {
     @State var usernameInput: String = ""
     @State var emailInput: String = ""
     @State var passwordInput: String = ""
-    @StateObject var viewModel = AuthViewModel()
+    @StateObject var viewModel: AuthViewModel
+    init() {
+        self._viewModel = StateObject(wrappedValue: AuthViewModel())
+    }
     var body: some View {
         VStack {
             Spacer()

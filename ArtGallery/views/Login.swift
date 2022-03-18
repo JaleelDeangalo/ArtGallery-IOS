@@ -8,10 +8,13 @@
 import SwiftUI
 
 struct LoginView: View {
-    @StateObject var viewModel = AuthViewModel()
+    @StateObject var viewModel: AuthViewModel
     @State var emailInput: String = ""
     @State var passwordInput: String = ""
     
+    init() {
+        self._viewModel = StateObject(wrappedValue: AuthViewModel())
+    }
     var body: some View {
         VStack {
             

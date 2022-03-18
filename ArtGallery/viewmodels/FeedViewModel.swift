@@ -10,33 +10,14 @@ import Foundation
 @MainActor
 final class FeedViewModel: ObservableObject {
     @Published var posts: [Post] = []
-    @Published var selectedUsername: String = ""
-    @Published var selectedUserAvatar: String = ""
-    @Published var selectedUserBio: String = ""
+    @Published var isLoading: Bool = false
     @Published var message: String = ""
-    @Published var currentUsername: String = ""
-    @Published var currentUserFollower: [String] = []
-    @Published var currentUserFollowing: [String] = []
-    
     
     init() {
         Task {
             await getPosts()
         }
     }
-    
-    
-    func getUser() async {
-        do {
-            let data = try await FeedRepository.shared.getUser()
-            currentUsername = data.username
-            currentUserFollower = data.followers
-            currentUserFollowing = data.following
-        } catch {
-            print(error)
-        }
-    }
-    
     
     func getPosts() async {
         do {
@@ -46,39 +27,6 @@ final class FeedViewModel: ObservableObject {
             print(error)
         }
     }
-    
-    
-    func getSelectedUser(id: String) async {
-        do {
-            let data = try await FeedRepository.shared.getSelectedUser(id: id)
-            selectedUsername = data.username
-            selectedUserAvatar = data.avatar
-            selectedUserBio = data.bio
-        } catch {
-            print(error)
-        }
-    }
-    
-    
-    func followUser(id: String) async {
-        do {
-            let data = try await FeedRepository.shared.followUser(id: id)
-            message = data.Message
-        } catch {
-            print(error)
-        }
-    }
-    
-    
-    func unfollowUser(id: String) async {
-        do {
-            let data = try await FeedRepository.shared.unfollowUser(id: id)
-            message = data.Message
-        } catch {
-            print(error)
-        }
-    }
-    
     
     func likePost(id: String) async {
         do {
@@ -100,12 +48,14 @@ final class FeedViewModel: ObservableObject {
     }
     
     
-    func checkIfLiked() -> Bool {
-        return false
+    func checkIfLiked(currentUserId: String, post: Post) -> Bool {
+        var liked: Bool = false
+        post.likesCount.forEach { id in
+            if currentUserId == id {
+                liked = true
+            }
+        }
+        return liked
     }
     
-    
-    func checkIfFollowing() -> Bool {
-        return false
-    }
 }

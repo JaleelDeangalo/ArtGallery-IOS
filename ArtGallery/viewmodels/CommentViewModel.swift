@@ -12,12 +12,16 @@ final class CommentViewModel: ObservableObject {
     
     @Published var comments: [Comment] = []
     @Published var response: String = ""
+    @Published var isLoading: Bool = false
     
     func readComments(postId: String) async {
+        isLoading = true
         do {
             let data = try await CommentRepository.shared.readComments(postId: postId)
             comments = data
+            isLoading = false
         } catch {
+            isLoading = false
             print(error)
         }
     }

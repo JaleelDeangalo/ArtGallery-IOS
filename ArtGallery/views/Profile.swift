@@ -10,7 +10,11 @@ import SDWebImageSwiftUI
 
 struct ProfileView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @StateObject var viewModel = ProfileViewModel()
+    @EnvironmentObject private var userViewModel: UserViewModel
+    @StateObject var viewModel: ProfileViewModel
+    init() {
+        self._viewModel = StateObject(wrappedValue: ProfileViewModel())
+    }
     var body: some View {
         VStack {
             HStack {

@@ -28,7 +28,24 @@ struct Settings: View {
                 
                 Spacer()
             }.padding(.horizontal)
-            Spacer()
+            
+            List {
+                
+                Link("Privacy Policy", destination: URL(string: "https://sephrim.io/privacy-policy.php")!)
+                    .foregroundColor(Color.primary)
+                
+                Link("Terms of Service", destination: URL(string: "https://sephrim.io/terms.php")!)
+                    .foregroundColor(Color.primary)
+            
+               
+                
+                Button(action:{
+                    AuthViewModel().signout()
+                }) {
+                    Text("Logout")
+                        .foregroundColor(Color.primary)
+                }
+            }
             
         }.background(colorScheme == .light ? Color.black.opacity(0.05) :  Color.white.opacity(0.09))
         .navigationTitle("")
