@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct LoginView: View {
+    @Environment(\.colorScheme) private var colorScheme
     @StateObject var viewModel: AuthViewModel
     @State var emailInput: String = ""
     @State var passwordInput: String = ""
@@ -20,17 +21,35 @@ struct LoginView: View {
             
             Spacer()
             
-            VStack(spacing: 10){
-                TextField("Email", text: $emailInput)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .padding(.horizontal)
-                    
+            VStack(spacing: 20) {
                 
-                SecureField("Password", text: $passwordInput)
-                    .multilineTextAlignment(.center)
-                    .padding()
-                    .padding(.horizontal)
+                VStack(spacing: 20) {
+                    TextField("Email", text: $emailInput)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        .background(colorScheme == .light ? Color.black.opacity(0.07) : Color.white.opacity(0.07))
+                        .cornerRadius(20)
+                        .padding(.horizontal)
+                    
+                        
+                    
+                    SecureField("Password", text: $passwordInput)
+                        .multilineTextAlignment(.center)
+                        .padding()
+                        .background(colorScheme == .light ? Color.black.opacity(0.07) : Color.white.opacity(0.07))
+                        .cornerRadius(20)
+                        .padding(.horizontal)
+                    
+                    Button(action: {}) {
+                        Text("Forgot password?")
+                            .font(.caption2)
+                            .foregroundColor(Color.red)
+                            .frame(maxWidth: .infinity, alignment: .trailing)
+                            .padding(.horizontal)
+                    }
+                   
+                }
+          
                 
                 Button(action: {
                     Task {
@@ -40,8 +59,11 @@ struct LoginView: View {
                     Text("Login")
                         .foregroundColor(Color.white)
                         .padding()
-                        .background(Color.blue)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .background(Color.red)
                         .cornerRadius(20)
+                        .padding(.horizontal)
                         
                 }
             }
@@ -54,9 +76,11 @@ struct LoginView: View {
             
             NavigationLink(destination: SignupView()) {
                 Text("Don't have an account? Signup")
-                    .foregroundColor(.blue)
+                    .foregroundColor(.red)
             }
-        }.navigationTitle("Login")
+        }
+        .navigationTitle("Login")
+        .background(colorScheme == .light ? Color.black.opacity(0.05) : Color.white.opacity(0.1))
     }
 }
 

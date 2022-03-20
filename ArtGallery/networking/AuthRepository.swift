@@ -24,7 +24,7 @@ struct AuthRepository {
     }
     
     func login(email: String, password: String) async throws -> Token {
-        guard let url = URL(string: BASE_URL + "/auth/login") else { throw ApiErrors.invalidURL }
+        guard let url = URL(string: "https://artsketch.herokuapp.com/api/auth/login") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = POST

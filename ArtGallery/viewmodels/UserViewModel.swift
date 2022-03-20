@@ -21,7 +21,7 @@ final class UserViewModel: ObservableObject {
     
     init() {
         Task {
-            await getUser()
+        
         }
     }
     
@@ -32,6 +32,7 @@ final class UserViewModel: ObservableObject {
             currentUserFollower = data.followers
             currentUserFollowing = data.following
         } catch {
+            print("getUser/ UserViewModel")
             print(error)
         }
     }

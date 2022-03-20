@@ -24,6 +24,7 @@ final class FeedViewModel: ObservableObject {
             let data = try await FeedRepository.shared.getPosts()
             posts = data
         } catch {
+            print("getPosts")
             print(error)
         }
     }

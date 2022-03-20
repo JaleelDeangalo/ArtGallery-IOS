@@ -32,6 +32,7 @@ final class ProfileViewModel: ObservableObject {
             self.followers = data.followers.count
             self.following = data.following.count
         } catch {
+            print("getUser")
             print(error)
         }
     }
