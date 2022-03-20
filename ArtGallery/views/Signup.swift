@@ -20,6 +20,10 @@ struct SignupView: View {
         VStack {
             Spacer()
             
+            if viewModel.isLoading {
+                ProgressView()
+            }
+            
             VStack(spacing: 20) {
                 VStack(spacing: 20) {
                     TextField("Username", text: $usernameInput)
@@ -71,7 +75,12 @@ struct SignupView: View {
             Spacer()
             
         
-        }.navigationTitle("Signup")
+        }.alert(viewModel.errorMessage, isPresented: $viewModel.isError, actions: {
+            Button("Ok", role: .cancel) {
+                
+            }
+        })
+        .navigationTitle("Signup")
             .background(colorScheme == .light ? Color.black.opacity(0.05) : Color.white.opacity(0.1))
     }
 }

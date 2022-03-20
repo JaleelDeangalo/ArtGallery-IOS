@@ -114,13 +114,24 @@ struct FeedView: View {
                                     .font(.subheadline)
                                 Spacer()
                                 HStack(spacing: 8) {
-                                    Button(action:{}) {
-                                        Image(systemName: "heart")
-                                            .foregroundColor(Color.primary)
+                                    Button(action:{
+                                        Task {
+                                            switch viewModel.checkIfLiked(currentUserId: viewModel.currentUserId, post: post) {
+                                                
+                                            case false:
+                                                await viewModel.likePost(id: post.id)
+                                            case true:
+                                                await viewModel.unlikePost(id: post.id)
+                                                
+                                            }
+                                        }
+                                    }) {
+                                        Image(systemName: viewModel.checkIfLiked(currentUserId: viewModel.currentUserId, post: post) ? "heart.fill" : "heart")
+                                            .foregroundColor( viewModel.checkIfLiked(currentUserId: viewModel.currentUserId, post: post) ? Color.red : Color.primary)
                                     }
                                     Text("\(post.likesCount.count)")
                                     
-                                    NavigationLink(destination: CommentsView(postId: post.id)) {
+                                    NavigationLink(destination: CommentsView(currentUserId: viewModel.currentUserId, postId: post.id)) {
                                         Image(systemName: "text.bubble")
                                     }.foregroundColor(Color.primary)
                                     Text("\(post.commentsCount.count)")

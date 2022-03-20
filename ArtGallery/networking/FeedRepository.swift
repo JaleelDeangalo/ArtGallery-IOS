@@ -46,7 +46,7 @@ struct FeedRepository {
         guard let url = URL(string: BASE_URL + "/user") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = POST
+        urlRequest.httpMethod = GET
         urlRequest.addValue(Value, forHTTPHeaderField: Headers)
         urlRequest.addValue(token, forHTTPHeaderField: Authorization)
         
@@ -118,7 +118,7 @@ struct FeedRepository {
         guard let url = URL(string: BASE_URL + "/post/like/\(id)") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = POST
+        urlRequest.httpMethod = PUT
         urlRequest.addValue(Value, forHTTPHeaderField: Headers)
         urlRequest.addValue(token, forHTTPHeaderField: Authorization)
         
@@ -136,7 +136,7 @@ struct FeedRepository {
         guard let url = URL(string: BASE_URL + "/post/unlike/\(id)") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = POST
+        urlRequest.httpMethod = PUT
         urlRequest.addValue(Value, forHTTPHeaderField: Headers)
         urlRequest.addValue(token, forHTTPHeaderField: Authorization)
         

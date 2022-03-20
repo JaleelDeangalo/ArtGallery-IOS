@@ -53,5 +53,33 @@ final class CommentViewModel: ObservableObject {
         }
     }
     
+    func likeComment(commentId: String) async {
+        do {
+            let data = try await CommentRepository.shared.likeComment(commentId: commentId)
+            response = data.Message
+        } catch {
+            print(error)
+        }
+    }
+    
+    func unlikeComment(commentId: String) async {
+        do {
+            let data = try await CommentRepository.shared.unlikeComment(commentId: commentId)
+            response = data.Message
+        } catch {
+            print(error)
+        }
+    }
+    
+    func checkIfLiked(currentUserId: String, comment: Comment) -> Bool {
+        var liked: Bool = false
+            comment.likes.forEach { id in
+                if currentUserId == id {
+                    liked = true
+            }
+        }
+        return liked
+    }
+    
     
 }

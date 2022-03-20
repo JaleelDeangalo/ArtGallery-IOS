@@ -46,6 +46,7 @@ struct UploadView: View {
                     titleInput = ""
                     descriptionInput = ""
                 }) {
+                    
                     Image(systemName: "checkmark")
                         .resizable()
                         .frame(width: 20, height: 20)
@@ -56,6 +57,11 @@ struct UploadView: View {
             .padding(10)
             .background(colorScheme == .light ? Color.white : Color.black)
             Spacer()
+            
+            if viewModel.isLoading {
+                ProgressView()
+            }
+            
             TextField("Title", text: $titleInput)
                 .multilineTextAlignment(.center)
                 .padding()
@@ -67,10 +73,12 @@ struct UploadView: View {
             
             VStack {
                 
-                ZStack {
-                    if viewModel.isLoading { LoadingView() }
+                VStack {
+                    if viewModel.isLoading { ProgressView() }
                     if image != nil {
+                        
                         Button(action:{ isShowingPicker = true }) {
+                            
                             Image(uiImage: image!)
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
@@ -78,6 +86,7 @@ struct UploadView: View {
                                 .padding()
                         }
                     } else {
+                        
                         Button(action: { isShowingPicker = true }) {
                             Image(systemName: "plus")
                                 .resizable()
@@ -111,11 +120,7 @@ struct UploadView: View {
     }
 }
 
-struct LoadingView: View {
-    var body: some View {
-        ProgressView()
-    }
-}
+
 
 struct Upload_Previews: PreviewProvider {
     static var previews: some View {

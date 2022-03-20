@@ -9,14 +9,16 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CommentsView: View {
+    var currentUserId: String = ""
     var postId: String = ""
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel: CommentViewModel
     @State private var commentInput: String = ""
     
-    init(postId: String) {
+    init(currentUserId: String, postId: String) {
         self._viewModel = StateObject(wrappedValue: CommentViewModel())
+        self.currentUserId = currentUserId
         self.postId = postId
     }
     var body: some View {
@@ -74,15 +76,26 @@ struct CommentsView: View {
                             Spacer()
                             
                             VStack(spacing: 7) {
-                                Button(action:{}) {
-                                    Image(systemName: "heart")
+                                Button(action:{
+                                    Task {
+                                        switch viewModel.checkIfLiked(currentUserId: currentUserId, comment: comment) {
+                                            
+                                        case false:
+                                            await viewModel.likeComment(commentId: comment.id)
+                                        case true:
+                                            await viewModel.unlikeComment(commentId: comment.id)
+                                        }
+                                    }
+                                }) {
+                                    Image(systemName: viewModel.checkIfLiked(currentUserId: currentUserId, comment: comment) ? "heart.fill" : "heart")
                                         .resizable()
                                         .frame(width: 11, height: 11, alignment: .center)
-                                        .foregroundColor(Color.primary)
+                                        .foregroundColor(viewModel.checkIfLiked(currentUserId: currentUserId, comment: comment) ? Color.red : Color.primary)
                                 }
-                                Text("0")
+                                Text("\(comment.likes.count)")
                                     .font(.caption2)
                                     .foregroundColor(Color.primary)
+                                
                             }
                            
                         }.padding(.horizontal)
@@ -102,10 +115,8 @@ struct CommentsView: View {
                     .cornerRadius(10)
                 Button(action:{
                     Task {
-                        
                         if commentInput.isEmpty { return }
                         await viewModel.postComment(postId: postId, comment: commentInput)
-                        
                         commentInput = ""
                     }
                 }) {
@@ -135,6 +146,6 @@ struct CommentsView: View {
 
 struct Comments_Previews: PreviewProvider {
     static var previews: some View {
-        CommentsView(postId: "")
+        CommentsView(currentUserId: "", postId: "")
     }
 }

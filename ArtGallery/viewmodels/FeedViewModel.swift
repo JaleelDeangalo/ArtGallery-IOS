@@ -10,12 +10,14 @@ import Foundation
 @MainActor
 final class FeedViewModel: ObservableObject {
     @Published var posts: [Post] = []
+    @Published var currentUserId: String = ""
     @Published var isLoading: Bool = false
     @Published var message: String = ""
     
     init() {
         Task {
             await getPosts()
+            await getUser()
         }
     }
     
@@ -25,6 +27,16 @@ final class FeedViewModel: ObservableObject {
             posts = data
         } catch {
             print("getPosts")
+            print(error)
+        }
+    }
+    
+    func getUser() async {
+        do {
+            let data = try await FeedRepository.shared.getUser()
+            currentUserId = data.id
+        } catch {
+            print("getUser")
             print(error)
         }
     }

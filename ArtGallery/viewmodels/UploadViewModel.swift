@@ -14,6 +14,9 @@ final class UploadViewModel: ObservableObject {
     
     @Published var responseMessage: String = ""
     @Published var isLoading: Bool = false
+    @Published var isError: Bool = false
+    @Published var errorMessage: String = ""
+    @Published var isUploading: Bool = false
     
     func uploadImage(image: UIImage, postDescription: String, title: String) {
         
@@ -21,6 +24,7 @@ final class UploadViewModel: ObservableObject {
             return
         }
         
+        isUploading = true
         isLoading = true
         
         let imageRef = FirebaseManager.shared.storage.reference().child("images")
@@ -29,7 +33,11 @@ final class UploadViewModel: ObservableObject {
         let metaDataConfig = StorageMetadata()
         metaDataConfig.contentType = "image/jpg"
         imageRef.putData(uploadedImage, metadata: metaDataConfig) { data, error in
-            guard error == nil else { return }
+            guard error == nil else {
+                self.isUploading = false
+                self.isError = true
+                self.errorMessage = "Image failed to save"
+                return }
             print("photo saved in database")
         
             imageRef.downloadURL { url, error in
@@ -41,12 +49,16 @@ final class UploadViewModel: ObservableObject {
                     case .success(let response):
                         print("Image Uploaded")
                         DispatchQueue.main.async {
+                            self?.isUploading = false
                             self?.isLoading = false
                             self?.responseMessage = response.Message
                         }
                         
                     case .failure(let error):
                         DispatchQueue.main.async {
+                            self?.isUploading = false
+                            self?.isError = true
+                            self?.errorMessage = "Failed to upload"
                             self?.isLoading = false
                         }
                         print(error)

@@ -21,6 +21,10 @@ struct LoginView: View {
             
             Spacer()
             
+            if viewModel.isLoading {
+                ProgressView()
+            }
+            
             VStack(spacing: 20) {
                 
                 VStack(spacing: 20) {
@@ -78,7 +82,11 @@ struct LoginView: View {
                 Text("Don't have an account? Signup")
                     .foregroundColor(.red)
             }
-        }
+        }.alert(viewModel.errorMessage, isPresented: $viewModel.isError, actions: {
+            Button("Ok", role: .cancel) {
+                
+            }
+        })
         .navigationTitle("Login")
         .background(colorScheme == .light ? Color.black.opacity(0.05) : Color.white.opacity(0.1))
     }
@@ -89,3 +97,4 @@ struct Login_Previews: PreviewProvider {
         LoginView()
     }
 }
+
