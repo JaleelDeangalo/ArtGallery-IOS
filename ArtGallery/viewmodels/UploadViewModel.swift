@@ -76,6 +76,80 @@ final class UploadViewModel: ObservableObject {
       
     }
     
+    func deleteUser() async {
+        do {
+            try await UploadRepository.shared.deleteUser()
+        } catch {
+            print(error)
+        }
+    }
+    
+    
+    func uploadProfileImage(username: String, email: String, bio: String, avatar: UIImage?, currentAvatar: String) {
+        
+        isUploading = true
+        if avatar != nil {
+            let imageRef = FirebaseManager.shared.storage.reference().child("profile/images")
+            guard let uploadedImage = avatar?.jpegData(compressionQuality: 1) else { return }
+            
+            let metaDataConfig = StorageMetadata()
+            metaDataConfig.contentType = "image/jpg"
+            
+            imageRef.putData(uploadedImage, metadata: metaDataConfig) { data, error in
+                guard error == nil else {
+                    print("Image failed to save to firebase")
+                    self.isUploading = false
+                    self.isError = true
+                    self.errorMessage = "Image failed to save"
+                    return
+                }
+                
+                print("Image saved to firebase")
+                
+                imageRef.downloadURL { url, error in
+                    guard let url = url, error == nil else { return }
+                    
+                    UploadRepository.shared.uploadUserData(newUsername: username, newEmail: email, newBio: bio, newAvatar: url.absoluteString) { [weak self] result in
+                        
+                        switch result {
+                            
+                        case .success(let response):
+                            print("Image saved to database")
+                            DispatchQueue.main.async {
+                                self?.responseMessage = response.Message
+                                self?.isUploading = false
+                            }
+                            
+                        case .failure(let error):
+                            self?.isUploading = false
+                            print(error)
+                        }
+                        
+                    }
+                }
+            }
+        } else {
+            UploadRepository.shared.uploadUserData(newUsername: username, newEmail: email, newBio: bio, newAvatar: currentAvatar) { [weak self] result in
+                
+                switch result {
+                    
+                case .success(let response):
+                    DispatchQueue.main.async {
+                        self?.isUploading = false
+                        self?.responseMessage = response.Message
+                    }
+                    
+                case .failure(let error):
+                    self?.isUploading = false
+                    print(error)
+                }
+                
+            }
+        }
+      
+        
+    }
+    
   
     
 }

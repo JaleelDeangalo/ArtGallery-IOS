@@ -13,6 +13,7 @@ final class ProfileViewModel: ObservableObject {
     @Published var username: String = ""
     @Published var avatar: String = ""
     @Published var bio: String = ""
+    @Published var email: String = ""
     @Published var followers: Int = 0
     @Published var following: Int = 0
     
@@ -29,6 +30,7 @@ final class ProfileViewModel: ObservableObject {
             self.username = data.username
             self.avatar = data.avatar
             self.bio = data.bio
+            self.email = data.email
             self.followers = data.followers.count
             self.following = data.following.count
         } catch {

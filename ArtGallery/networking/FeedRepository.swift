@@ -61,10 +61,10 @@ struct FeedRepository {
     }
     
     func getSelectedUser(id: String) async throws -> User {
-        guard let url = URL(string: BASE_URL + "/user/\(id)") else { throw ApiErrors.invalidURL }
+        guard let url = URL(string: "https://artsketch.herokuapp.com/api/user/getUser/\(id)") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = POST
+        urlRequest.httpMethod = GET
         urlRequest.addValue(Value, forHTTPHeaderField: Headers)
         urlRequest.addValue(token, forHTTPHeaderField: Authorization)
         

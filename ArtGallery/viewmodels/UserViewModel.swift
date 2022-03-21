@@ -13,6 +13,7 @@ final class UserViewModel: ObservableObject {
     @Published var selectedUserAvatar: String = ""
     @Published var selectedUserBio: String = ""
     @Published var selectedId: String = ""
+    @Published var selectedUserFollowing: [String] = []
     @Published var selectedUserFollowers: [String] = []
     @Published var currentUsername: String = ""
     @Published var message: String = ""
@@ -45,6 +46,7 @@ final class UserViewModel: ObservableObject {
             selectedUserBio = data.bio
             selectedUserFollowers = data.followers
         } catch {
+            print("selectedUser")
             print(error)
         }
     }

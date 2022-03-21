@@ -83,9 +83,7 @@ struct LoginView: View {
                     .foregroundColor(.red)
             }
         }.alert(viewModel.errorMessage, isPresented: $viewModel.isError, actions: {
-            Button("Ok", role: .cancel) {
-                
-            }
+            Button("Ok", role: .cancel) {}
         })
         .navigationTitle("Login")
         .background(colorScheme == .light ? Color.black.opacity(0.05) : Color.white.opacity(0.1))

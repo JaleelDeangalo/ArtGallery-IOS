@@ -89,12 +89,13 @@ struct FeedView: View {
                                 Text(post.username)
                                 
                                 Spacer()
-                                Button(action:{}) {
+                                
+                                NavigationLink(destination: UserProfile(userId: post.userId)) {
+                                    
                                     Image(systemName: "ellipsis.circle.fill")
                                         .resizable()
                                         .frame(width: 20, height: 20)
                                         .foregroundColor(Color.primary)
-                                        
                                 }
                                 
                             }.frame(maxWidth: .infinity, alignment: .leading)

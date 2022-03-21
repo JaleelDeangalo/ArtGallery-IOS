@@ -29,10 +29,10 @@ struct User: Codable, Identifiable {
 }
 
 struct UserInput: Codable {
-    let newEmail: String?
-    let newUsername: String?
-    let newAvatar: String?
-    let newBio: String?
+    let username: String
+    let email: String
+    let bio: String
+    let avatar: String?
 }
 
 struct LoginInput: Codable {

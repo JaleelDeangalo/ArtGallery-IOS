@@ -72,7 +72,7 @@ struct ProfileView: View {
                
             }
             
-            Button(action:{}) {
+            NavigationLink(destination: EditProfileView(bio: viewModel.bio, username: viewModel.username, email: viewModel.email, avatar: viewModel.avatar)) {
                 Text("Edit Profile")
                     .foregroundColor(Color.white)
                     .frame(maxWidth: .infinity)
@@ -81,6 +81,7 @@ struct ProfileView: View {
                     .cornerRadius(10)
                     .padding(.horizontal, 40)
             }.padding(.top, 5)
+            
           Spacer()
             
         }.background(colorScheme == .light ? Color.black.opacity(0.05) :  Color.white.opacity(0.09))

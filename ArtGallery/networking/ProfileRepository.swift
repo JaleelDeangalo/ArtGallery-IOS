@@ -43,14 +43,14 @@ struct ProfileRepository {
         
     }
     
-    func updateUser(email: String?, username: String?, avatar: String?, bio: String?) async throws -> User {
+    func updateUser(email: String, username: String, avatar: String, bio: String) async throws -> User {
         guard let url = URL(string: BASE_URL + "/user") else { throw ApiErrors.invalidURL }
         
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = PUT
         urlRequest.addValue(Value, forHTTPHeaderField: Headers)
         urlRequest.addValue(token, forHTTPHeaderField: Authorization)
-        urlRequest.httpBody = try JSONEncoder().encode(UserInput(newEmail: email ?? nil, newUsername: username ?? nil, newAvatar: avatar ?? nil, newBio: bio ?? nil))
+        urlRequest.httpBody = try JSONEncoder().encode(UserInput(username: username, email: email, bio: bio, avatar: avatar))
         let (data, response) = try await URLSession.shared.data(for: urlRequest)
         guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }
         guard httpResponse.statusCode != 400 else { throw ApiErrors.badRequest400 }
