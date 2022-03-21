@@ -121,7 +121,6 @@ struct UploadView: View {
 }
 
 
-
 struct Upload_Previews: PreviewProvider {
     static var previews: some View {
         UploadView()

@@ -20,9 +20,7 @@ final class UploadViewModel: ObservableObject {
     
     func uploadImage(image: UIImage, postDescription: String, title: String) {
         
-        guard postDescription != "", title != "" else {
-            return
-        }
+        guard postDescription != "", title != "" else { return }
         
         isUploading = true
         isLoading = true
