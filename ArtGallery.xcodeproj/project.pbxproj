@@ -42,6 +42,8 @@
 		325523DB27DD9F0E00EEA4E4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325523DA27DD9F0E00EEA4E4 /* Settings.swift */; };
 		32A3122D27E7F9ED00452269 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A3122C27E7F9ED00452269 /* EditProfileView.swift */; };
 		32A3122F27E83D4C00452269 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A3122E27E83D4C00452269 /* UserProfile.swift */; };
+		32B7530127EBAB7C00FA59D3 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7530027EBAB7C00FA59D3 /* PostView.swift */; };
+		32B7530327EBB01A00FA59D3 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7530227EBB01A00FA59D3 /* CommentView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,6 +81,8 @@
 		325523DA27DD9F0E00EEA4E4 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		32A3122C27E7F9ED00452269 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		32A3122E27E83D4C00452269 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		32B7530027EBAB7C00FA59D3 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
+		32B7530227EBB01A00FA59D3 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,6 +153,8 @@
 				325523DA27DD9F0E00EEA4E4 /* Settings.swift */,
 				32A3122C27E7F9ED00452269 /* EditProfileView.swift */,
 				32A3122E27E83D4C00452269 /* UserProfile.swift */,
+				32B7530027EBAB7C00FA59D3 /* PostView.swift */,
+				32B7530227EBB01A00FA59D3 /* CommentView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -285,6 +291,7 @@
 				32157EFB27CEFBD200F4DFC5 /* Upload.swift in Sources */,
 				32157EF927CEFBB800F4DFC5 /* Feed.swift in Sources */,
 				32A3122D27E7F9ED00452269 /* EditProfileView.swift in Sources */,
+				32B7530127EBAB7C00FA59D3 /* PostView.swift in Sources */,
 				323EB95127D5A15000D6AD2A /* ImagePicker.swift in Sources */,
 				32157F0127CEFC0A00F4DFC5 /* Signup.swift in Sources */,
 				32157F1D27CF0C5800F4DFC5 /* CommentRepository.swift in Sources */,
@@ -294,6 +301,7 @@
 				32157F0F27CEFDD000F4DFC5 /* Comment.swift in Sources */,
 				32157F0327CEFC1A00F4DFC5 /* AuthViewModel.swift in Sources */,
 				32157EDF27CEF92E00F4DFC5 /* ArtGalleryApp.swift in Sources */,
+				32B7530327EBB01A00FA59D3 /* CommentView.swift in Sources */,
 				32157F1527CF036E00F4DFC5 /* AuthRepository.swift in Sources */,
 				32157F0927CEFC8E00F4DFC5 /* ProfileVIewModel.swift in Sources */,
 				325523DB27DD9F0E00EEA4E4 /* Settings.swift in Sources */,

@@ -51,7 +51,6 @@ struct FeedView: View {
                         selected.toggle()
                     }) {
                         
-                        
                         if selected {
                             Image(systemName: "square.dashed")
                                 .resizable()
@@ -76,88 +75,28 @@ struct FeedView: View {
             ScrollView(showsIndicators: false) {
                 
                 LazyVStack {
+                    
                     ForEach(viewModel.posts) { post in
                         
-                        VStack {
-                            HStack(spacing: 10) {
-                                WebImage(url: URL(string: post.avatar))
-                                    .resizable()
-                                    .aspectRatio(contentMode: .fill)
-                                    .frame(width: 40, height: 40)
-                                    .clipShape(Circle())
-                                
-                                Text(post.username)
-                                
-                                Spacer()
-                                
-                                NavigationLink(destination: UserProfile(userId: post.userId)) {
-                                    
-                                    Image(systemName: "ellipsis.circle.fill")
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                        .foregroundColor(Color.primary)
-                                }
-                                
-                            }.frame(maxWidth: .infinity, alignment: .leading)
-                            .padding(.horizontal)
-                            
-                        
-                            
-                            WebImage(url: URL(string: post.image))
-                                .resizable()
-                                .frame(maxWidth: .infinity, alignment: .center)
-                                .aspectRatio(contentMode: .fill)
-                                .cornerRadius(10)
-                                .padding(.horizontal)
-                            
-                            HStack {
-                                Text(post.postDescription)
-                                    .font(.subheadline)
-                                Spacer()
-                                HStack(spacing: 8) {
-                                    Button(action:{
-                                        Task {
-                                            switch viewModel.checkIfLiked(currentUserId: viewModel.currentUserId, post: post) {
-                                                
-                                            case false:
-                                                await viewModel.likePost(id: post.id)
-                                            case true:
-                                                await viewModel.unlikePost(id: post.id)
-                                                
-                                            }
-                                        }
-                                    }) {
-                                        Image(systemName: viewModel.checkIfLiked(currentUserId: viewModel.currentUserId, post: post) ? "heart.fill" : "heart")
-                                            .foregroundColor( viewModel.checkIfLiked(currentUserId: viewModel.currentUserId, post: post) ? Color.red : Color.primary)
-                                    }
-                                    Text("\(post.likesCount.count)")
-                                    
-                                    NavigationLink(destination: CommentsView(currentUserId: viewModel.currentUserId, postId: post.id)) {
-                                        Image(systemName: "text.bubble")
-                                    }.foregroundColor(Color.primary)
-                                    Text("\(post.commentsCount.count)")
-                                    
-                                }
-                               
-                            }.padding(.horizontal)
-                        }.redacted(reason: viewModel.isLoading ? .placeholder : [])
-                        .padding()
-                            .background(colorScheme == .light ?  Color.black.opacity(0.05) : Color.white.opacity(0.09))
-                        .cornerRadius(10)
-                        .padding()
+                        PostView(viewModel: viewModel, post: post)
+                            .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                            .padding()
+                                .background(colorScheme == .light ?  Color.black.opacity(0.05) : Color.white.opacity(0.09))
+                            .cornerRadius(10)
+                            .padding()
                         
                     }
                 }
             }
-        }
-        .onReceive(viewModel.$posts, perform: { _ in
+            
+        }.onAppear {
             Task {
                 await viewModel.getPosts()
+                await viewModel.getUser()
             }
-        })
-        
+        }
+        .onReceive(viewModel.$posts, perform: { _ in Task { await viewModel.getPosts() }})
         .background(colorScheme == .light ? Color.black.opacity(0.05) :  Color.white.opacity(0.09))
-        
     }
     
 }

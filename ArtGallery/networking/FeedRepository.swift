@@ -114,6 +114,25 @@ struct FeedRepository {
         return try JSONDecoder().decode(Response.self, from: data)
     }
     
+    func getSelectedUserPost(id: String) async throws -> User {
+        guard let url = URL(string: "") else { throw ApiErrors.invalidURL }
+        
+        var request = URLRequest(url: url)
+        request.httpMethod = GET
+        request.addValue(Value, forHTTPHeaderField: Headers)
+        request.addValue(token, forHTTPHeaderField: Authorization)
+        
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }
+        guard httpResponse.statusCode != 400 else { throw ApiErrors.badRequest400 }
+        guard httpResponse.statusCode != 401 else { throw ApiErrors.notAuthorized401 }
+        guard httpResponse.statusCode != 403 else { throw ApiErrors.forbidden403 }
+        guard httpResponse.statusCode != 404 else { throw ApiErrors.notFound404 }
+        guard httpResponse.statusCode != 500 else { throw ApiErrors.internalServerError500 }
+        return try JSONDecoder().decode(User.self, from: data)
+        
+    }
+    
     func likePost(id: String) async throws -> Response {
         guard let url = URL(string: BASE_URL + "/post/like/\(id)") else { throw ApiErrors.invalidURL }
         

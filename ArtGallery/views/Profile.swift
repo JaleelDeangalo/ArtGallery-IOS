@@ -84,7 +84,12 @@ struct ProfileView: View {
             
           Spacer()
             
-        }.background(colorScheme == .light ? Color.black.opacity(0.05) :  Color.white.opacity(0.09))
+        }.onAppear {
+            Task {
+               await viewModel.getUser()
+            }
+        }
+        .background(colorScheme == .light ? Color.black.opacity(0.05) :  Color.white.opacity(0.09))
     }
 }
 

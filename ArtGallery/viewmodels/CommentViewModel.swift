@@ -13,6 +13,8 @@ final class CommentViewModel: ObservableObject {
     @Published var comments: [Comment] = []
     @Published var response: String = ""
     @Published var isLoading: Bool = false
+    @Published var commentAvatar: String = ""
+    @Published var commentUsername: String = ""
     
     func readComments(postId: String) async {
         isLoading = true
@@ -66,6 +68,16 @@ final class CommentViewModel: ObservableObject {
         do {
             let data = try await CommentRepository.shared.unlikeComment(commentId: commentId)
             response = data.Message
+        } catch {
+            print(error)
+        }
+    }
+    
+    func getSelectedUserComment(id: String) async {
+        do {
+            let data = try await FeedRepository.shared.getSelectedUser(id: id)
+            commentAvatar = data.avatar
+            commentUsername = data.username
         } catch {
             print(error)
         }

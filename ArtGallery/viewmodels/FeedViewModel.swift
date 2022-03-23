@@ -13,6 +13,8 @@ final class FeedViewModel: ObservableObject {
     @Published var currentUserId: String = ""
     @Published var isLoading: Bool = false
     @Published var message: String = ""
+    @Published var postAvatar: String = ""
+    @Published var postUsername: String = ""
     
     init() {
         Task {
@@ -60,6 +62,15 @@ final class FeedViewModel: ObservableObject {
         }
     }
     
+    func getSelectedUserPosts(id: String) async {
+        do {
+            let data = try await FeedRepository.shared.getSelectedUser(id: id)
+            postAvatar = data.avatar
+            postUsername = data.username
+        } catch {
+            print(error)
+        }
+    }
     
     func checkIfLiked(currentUserId: String, post: Post) -> Bool {
         var liked: Bool = false
