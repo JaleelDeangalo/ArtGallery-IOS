@@ -6,6 +6,10 @@
 //
 
 import SwiftUI
+import PermissionsKit
+import CameraPermission
+import PhotoLibraryPermission
+import MediaLibraryPermission
 
 struct CoreView: View {
     init() {
@@ -42,6 +46,14 @@ struct CoreView: View {
                 }.navigationTitle("")
                 .navigationBarHidden(true)
             
+        }
+        .onAppear {
+            guard let presentingViewController = (UIApplication.shared.connectedScenes.first as? UIWindowScene)?.windows.first?.rootViewController else { return }
+    
+            PermissionsKit.native([ .camera, .photoLibrary]).present(on: presentingViewController)
+            
+                     
+
         }.accentColor(Color.red)
     }
 }

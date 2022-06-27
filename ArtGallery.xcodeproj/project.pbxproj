@@ -510,7 +510,8 @@
 				DEVELOPMENT_TEAM = T6S3P6VTG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "#(PRODUCT_NAME) wants to use the camera for image uploads";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "$(PRODUCT_NAME) want access to your library for video uploads";
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) wants to use the camera for image uploads";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) wants to access to your photo library for image uploads";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -541,7 +542,8 @@
 				DEVELOPMENT_TEAM = T6S3P6VTG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_KEY_NSCameraUsageDescription = "#(PRODUCT_NAME) wants to use the camera for image uploads";
+				INFOPLIST_KEY_NSAppleMusicUsageDescription = "$(PRODUCT_NAME) want access to your library for video uploads";
+				INFOPLIST_KEY_NSCameraUsageDescription = "$(PRODUCT_NAME) wants to use the camera for image uploads";
 				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) wants to access to your photo library for image uploads";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
@@ -605,8 +607,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sparrowcode/PermissionsKit";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.0.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
