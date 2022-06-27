@@ -18,12 +18,18 @@ final class UploadViewModel: ObservableObject {
     @Published var errorMessage: String = ""
     @Published var isUploading: Bool = false
     
+    private let delegate: UploadService
+    
+    init(delegate: UploadService) {
+        self.delegate = delegate
+    }
+    
     func uploadImage(image: UIImage, postDescription: String, title: String) {
         
         guard postDescription != "", title != "" else { return }
         
-        isUploading = true
-        isLoading = true
+        self.isUploading = true
+        self.isLoading = true
         
         let imageRef = FirebaseManager.shared.storage.reference().child("images")
         guard let uploadedImage = image.jpegData(compressionQuality: 1) else { return }
@@ -40,7 +46,7 @@ final class UploadViewModel: ObservableObject {
         
             imageRef.downloadURL { url, error in
                 guard let url = url else { return }
-                UploadRepository.shared.uploadImage(newImage: url.absoluteString, newPostDescription: postDescription, newTitle: title) { [weak self] result in
+                self.delegate.uploadImage(image: url.absoluteString, description: postDescription, title: title) { [weak self] result in
                 
                     switch result {
                         
@@ -69,14 +75,14 @@ final class UploadViewModel: ObservableObject {
             
         }
         
-        isLoading = false
+        self.isLoading = false
       
       
     }
     
     func deleteUser() async {
         do {
-            try await UploadRepository.shared.deleteUser()
+            try await delegate.deleteUser()
         } catch {
             print(error)
         }
@@ -85,7 +91,7 @@ final class UploadViewModel: ObservableObject {
     
     func uploadProfileImage(username: String, email: String, bio: String, avatar: UIImage?, currentAvatar: String) {
         
-        isUploading = true
+        self.isUploading = true
         if avatar != nil {
             let imageRef = FirebaseManager.shared.storage.reference().child("profile/images")
             guard let uploadedImage = avatar?.jpegData(compressionQuality: 1) else { return }
@@ -107,7 +113,7 @@ final class UploadViewModel: ObservableObject {
                 imageRef.downloadURL { url, error in
                     guard let url = url, error == nil else { return }
                     
-                    UploadRepository.shared.uploadUserData(newUsername: username, newEmail: email, newBio: bio, newAvatar: url.absoluteString) { [weak self] result in
+                    self.delegate.uploadUserData(newUsername: username, newEmail: email, newBio: bio, newAvatar: url.absoluteString) { [weak self] result in
                         
                         switch result {
                             
@@ -127,7 +133,7 @@ final class UploadViewModel: ObservableObject {
                 }
             }
         } else {
-            UploadRepository.shared.uploadUserData(newUsername: username, newEmail: email, newBio: bio, newAvatar: currentAvatar) { [weak self] result in
+            self.delegate.uploadUserData(newUsername: username, newEmail: email, newBio: bio, newAvatar: currentAvatar) { [weak self] result in
                 
                 switch result {
                     

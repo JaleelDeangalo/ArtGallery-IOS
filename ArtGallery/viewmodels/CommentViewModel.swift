@@ -10,18 +10,22 @@ import Foundation
 @MainActor
 final class CommentViewModel: ObservableObject {
     
-    @Published var comments: [Comment] = []
+    @Published var comments: [Comment] = [Comment]()
     @Published var response: String = ""
     @Published var isLoading: Bool = false
-    @Published var commentAvatar: String = ""
-    @Published var commentUsername: String = ""
+    
+    private let delegate: CommentService
+    
+    init(delegate: CommentService) {
+        self.delegate = delegate
+    }
     
     func readComments(postId: String) async {
-        isLoading = true
+        self.isLoading = true
         do {
-            let data = try await CommentRepository.shared.readComments(postId: postId)
-            comments = data
-            isLoading = false
+            let data = try await delegate.readComments(postId: postId)
+            self.comments = data
+            self.isLoading = false
         } catch {
             isLoading = false
             print(error)
@@ -30,8 +34,8 @@ final class CommentViewModel: ObservableObject {
     
     func postComment(postId: String, comment: String) async {
         do {
-            let data = try await CommentRepository.shared.postComment(postId: postId, comment: comment)
-            response = data.Message
+            let data = try await delegate.postComment(postId: postId, comment: comment)
+            self.response = data.Message
         } catch {
             print(error)
         }
@@ -39,8 +43,8 @@ final class CommentViewModel: ObservableObject {
     
     func updateComment(postId: String, comment: String, commentId: String) async {
         do {
-            let data = try await CommentRepository.shared.updateComment(postId: postId, comment: comment, commentId: commentId)
-            response = data.Message
+            let data = try await delegate.updateComment(postId: postId, comment: comment, commentId: commentId)
+            self.response = data.Message
         } catch {
             print(error)
         }
@@ -48,8 +52,8 @@ final class CommentViewModel: ObservableObject {
     
     func deleteComment(postId: String, commentId: String) async {
         do {
-            let data = try await CommentRepository.shared.deleteComment(postId: postId, commentId: commentId)
-            response = data.Message
+            let data = try await delegate.deleteComment(postId: postId, commentId: commentId)
+            self.response = data.Message
         } catch {
             print(error)
         }
@@ -57,8 +61,8 @@ final class CommentViewModel: ObservableObject {
     
     func likeComment(commentId: String) async {
         do {
-            let data = try await CommentRepository.shared.likeComment(commentId: commentId)
-            response = data.Message
+            let data = try await delegate.likeComment(commentId: commentId)
+            self.response = data.Message
         } catch {
             print(error)
         }
@@ -66,22 +70,24 @@ final class CommentViewModel: ObservableObject {
     
     func unlikeComment(commentId: String) async {
         do {
-            let data = try await CommentRepository.shared.unlikeComment(commentId: commentId)
-            response = data.Message
+            let data = try await delegate.unlikeComment(commentId: commentId)
+            self.response = data.Message
         } catch {
             print(error)
         }
     }
     
+   /*
     func getSelectedUserComment(id: String) async {
         do {
-            let data = try await FeedRepository.shared.getSelectedUser(id: id)
+            let data = try await delegate.getSelectedUserComment(id: id)
             commentAvatar = data.avatar
             commentUsername = data.username
         } catch {
             print(error)
         }
     }
+    */
     
     func checkIfLiked(currentUserId: String, comment: Comment) -> Bool {
         var liked: Bool = false

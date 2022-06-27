@@ -17,36 +17,31 @@ final class AuthViewModel: ObservableObject {
     @Published var isLoading: Bool = false
     @Published var errorMessage: String = ""
     
-    enum ApiErrors: Error {
-        case invalidURL
-        case invalidHTTPResponse
-        case badRequest400
-        case notAuthorized401
-        case forbidden403
-        case notFound404
-        case internalServerError500
-    }
+    private let delegate: AuthService
     
+    init(delegate: AuthService) {
+        self.delegate = delegate
+    }
     
     func login(email: String, password: String) async {
         
         guard !email.isEmpty, !password.isEmpty else {
-            isError = true
-            errorMessage = "All fields are required"
+            self.isError = true
+            self.errorMessage = "All fields are required"
             return
         }
         
-        isLoading = true
+        self.isLoading = true
         do {
-            let data = try await AuthRepository.shared.login(email: email, password: password)
-            token = data.token
-            auth = true
-            isLoading = false
+            let data = try await delegate.login(email: email, password: password)
+            self.token = data.token
+            self.auth = true
+            self.isLoading = false
         } catch {
-            isError = true
-            isLoading = false
+            self.isError = true
+            self.isLoading = false
             print(error)
-            errorMessage = "Email or password is invalid"
+            self.errorMessage = "Email or password is invalid"
         }
         
     }
@@ -55,29 +50,27 @@ final class AuthViewModel: ObservableObject {
     func signup(username: String, email: String, password: String) async {
         
         guard !username.isEmpty, !email.isEmpty, !password.isEmpty else {
-            isError = true
-            errorMessage = "All fields are required"
+            self.isError = true
+            self.errorMessage = "All fields are required"
             return
         }
         
-        isLoading = true
+        self.isLoading = true
         
         do {
-            let data = try await AuthRepository.shared.signup(username: username, email: email, password: password)
-            token = data.token
-            auth = true
-            isLoading = false
+            let data = try await delegate.signup(username: username, email: email, password: password)
+            self.token = data.token
+            self.auth = true
+            self.isLoading = false
         } catch {
-            isLoading = false
-            isError = true
+            self.isLoading = false
+            self.isError = true
             print(error)
-            errorMessage = "Email is in use"
+            self.errorMessage = "Email is in use"
            
         }
     }
     
-    func signout() {
-        auth = false
-    }
+    func signout() { self.auth = false }
     
 }

@@ -14,7 +14,7 @@ struct LoginView: View {
     @State var passwordInput: String = ""
     
     init() {
-        self._viewModel = StateObject(wrappedValue: AuthViewModel())
+        self._viewModel = StateObject(wrappedValue: AuthViewModel(delegate: AuthRepository()))
     }
     var body: some View {
         VStack {

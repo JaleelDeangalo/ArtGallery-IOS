@@ -10,14 +10,14 @@ import SDWebImageSwiftUI
 
 struct FeedView: View {
     @Environment(\.colorScheme) private var colorScheme
-    @EnvironmentObject private var userViewModel: UserViewModel
-    @StateObject var viewModel: FeedViewModel
+    @StateObject private var viewModel: FeedViewModel
     @State private var selected: Bool = true
     @State private var timelineSelected: Bool = false
     
     init() {
-        self._viewModel = StateObject(wrappedValue: FeedViewModel())
+        self._viewModel = StateObject(wrappedValue: FeedViewModel(delegate: FeedRepository()))
     }
+    
     var body: some View {
         VStack {
             HStack {
@@ -71,32 +71,28 @@ struct FeedView: View {
             .padding(10)
             .background(colorScheme == .light ? Color.white : Color.black)
          
-            
             ScrollView(showsIndicators: false) {
                 
                 LazyVStack {
                     
                     ForEach(viewModel.posts) { post in
                         
-                        PostView(viewModel: viewModel, post: post)
-                            .redacted(reason: viewModel.isLoading ? .placeholder : [])
+                        PostView(post: post)
                             .padding()
                                 .background(colorScheme == .light ?  Color.black.opacity(0.05) : Color.white.opacity(0.09))
                             .cornerRadius(10)
                             .padding()
-                        
+
                     }
                 }
             }
             
-        }.onAppear {
-            Task {
-                await viewModel.getPosts()
-                await viewModel.getUser()
-            }
+        }.task {
+            await viewModel.getPosts()
         }
-        .onReceive(viewModel.$posts, perform: { _ in Task { await viewModel.getPosts() }})
+       
         .background(colorScheme == .light ? Color.black.opacity(0.05) :  Color.white.opacity(0.09))
+       
     }
     
 }

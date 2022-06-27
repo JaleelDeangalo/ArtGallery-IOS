@@ -10,6 +10,12 @@ import SwiftUI
 struct Settings: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.presentationMode) var presentationMode
+    @StateObject var viewModel: AuthViewModel
+    
+    
+    init() {
+        self._viewModel = StateObject(wrappedValue: AuthViewModel(delegate: AuthRepository()))
+    }
     var body: some View {
         VStack {
             HStack {
@@ -40,7 +46,7 @@ struct Settings: View {
                
                 
                 Button(action:{
-                    AuthViewModel().signout()
+                   viewModel.signout()
                 }) {
                     Text("Logout")
                         .foregroundColor(Color.primary)

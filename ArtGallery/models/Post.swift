@@ -19,7 +19,7 @@ struct Post: Codable, Identifiable {
     let title: String
     let userId: String
     
-    enum CodingKeys: String, CodingKey {
+    private enum CodingKeys: String, CodingKey {
         case id = "_id"
         case commentsCount = "comments"
         case likesCount = "likes"
@@ -31,7 +31,7 @@ struct Post: Codable, Identifiable {
 }
 
 struct PostInput: Codable {
-    let image: String
     let description: String
+    let image: String
     let details: String
 }

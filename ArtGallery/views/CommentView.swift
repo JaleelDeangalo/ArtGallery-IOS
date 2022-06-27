@@ -9,12 +9,11 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CommentView: View {
-    @ObservedObject var viewModel: CommentViewModel
-    let comment: Comment
-    let currentUserId: String
     var body: some View {
       
         HStack(spacing: 10) {
+            
+            /*
             
             WebImage(url: URL(string: viewModel.commentAvatar))
                 .resizable()
@@ -55,6 +54,7 @@ struct CommentView: View {
                     .foregroundColor(Color.primary)
                 
             }
+            */
            
         }
     }
@@ -62,6 +62,6 @@ struct CommentView: View {
 
 struct CommentView_Previews: PreviewProvider {
     static var previews: some View {
-        CommentView(viewModel: CommentViewModel(), comment: Comment(likes: [""], comment: "", date: "", id: "", username: "", avatar: "", user: "", postId: "", v: 0), currentUserId: "")
+        CommentView()
     }
 }

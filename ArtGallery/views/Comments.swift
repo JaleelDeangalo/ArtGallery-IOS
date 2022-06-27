@@ -9,16 +9,14 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct CommentsView: View {
-    var currentUserId: String = ""
-    var postId: String = ""
+    var postId: String
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.presentationMode) var presentationMode
     @StateObject var viewModel: CommentViewModel
     @State private var commentInput: String = ""
     
-    init(currentUserId: String, postId: String) {
-        self._viewModel = StateObject(wrappedValue: CommentViewModel())
-        self.currentUserId = currentUserId
+    init(postId: String) {
+        self._viewModel = StateObject(wrappedValue: CommentViewModel(delegate: CommentRepository()))
         self.postId = postId
     }
     var body: some View {
@@ -52,20 +50,44 @@ struct CommentsView: View {
                 .padding(.horizontal)
                 .background(colorScheme == .light ? Color.white : Color.black)
             
+            
             ScrollView(showsIndicators: false) {
                 LazyVStack {
                     
                     ForEach(viewModel.comments) { comment in
                         
-                        CommentView(viewModel: viewModel, comment: comment, currentUserId: currentUserId).padding(.horizontal)
-                            .padding()
-                            .onAppear {
-                                Task {
-                                    await viewModel.getSelectedUserComment(id: comment.user)
-                                }
+                        HStack(spacing: 10) {
+                            
+                            WebImage(url: URL(string: comment.avatar))
+                                .resizable()
+                                .aspectRatio( contentMode: .fill)
+                                .frame(width: 40, height: 40, alignment: .center)
+                                .clipShape(Circle())
+                            
+                            VStack(alignment: .leading, spacing: 7) {
+                                
+                                Text(comment.username)
+                                    .font(.caption2)
+                                Text(comment.comment)
+                                    .font(.caption)
+                                    .lineLimit(7)
                             }
+                            
+                            Spacer()
+                            
+                            VStack(spacing: 7) {
+
+                                
+                                Text("\(comment.likes.count)")
+                                    .font(.caption2)
+                                    .foregroundColor(Color.primary)
+                                
+                            }
+                           
+                        }.padding()
+                       
                         
-                        Divider()
+                 
                     }
                   
                 }.padding()
@@ -95,11 +117,6 @@ struct CommentsView: View {
         }.task {
             await viewModel.readComments(postId: postId)
         }
-        .onReceive(viewModel.$comments, perform: { _ in
-            Task {
-                await viewModel.readComments(postId: postId)
-            }
-        })
         .navigationTitle("")
          .navigationBarHidden(true)
          .background(colorScheme == .light ? Color.black.opacity(0.05) :  Color.white.opacity(0.09))
@@ -110,6 +127,6 @@ struct CommentsView: View {
 
 struct Comments_Previews: PreviewProvider {
     static var previews: some View {
-        CommentsView(currentUserId: "", postId: "")
+        CommentsView(postId: "")
     }
 }

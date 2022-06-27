@@ -9,29 +9,28 @@ import SwiftUI
 import SDWebImageSwiftUI
 
 struct PostView: View {
-    @ObservedObject var viewModel: FeedViewModel
-    let post: Post
+    private var post: Post
+    init(post: Post) {
+        self.post = post
+    }
     var body: some View {
         
         VStack {
+            
             HStack(spacing: 10) {
-                WebImage(url: URL(string: viewModel.postAvatar))
+                WebImage(url: URL(string: post.avatar))
                     .resizable()
                     .aspectRatio(contentMode: .fill)
                     .frame(width: 40, height: 40)
                     .clipShape(Circle())
                 
-                Text(viewModel.postUsername)
+                Text(post.username)
                 
                 Spacer()
                 
-                NavigationLink(destination: UserProfile(userId: post.userId)) {
-                    
-                    Image(systemName: "ellipsis.circle.fill")
-                        .resizable()
-                        .frame(width: 20, height: 20)
-                        .foregroundColor(Color.primary)
-                }
+                Text("2 Hours ago")
+                    .foregroundColor(Color.primary)
+                    .font(.caption)
                 
             }.frame(maxWidth: .infinity, alignment: .leading)
             .padding(.horizontal)
@@ -50,24 +49,15 @@ struct PostView: View {
                     .font(.subheadline)
                 Spacer()
                 HStack(spacing: 8) {
-                    Button(action:{
-                        Task {
-                            switch viewModel.checkIfLiked(currentUserId: viewModel.currentUserId, post: post) {
-                                
-                            case false:
-                                await viewModel.likePost(id: post.id)
-                            case true:
-                                await viewModel.unlikePost(id: post.id)
-                                
-                            }
-                        }
-                    }) {
-                        Image(systemName: viewModel.checkIfLiked(currentUserId: viewModel.currentUserId, post: post) ? "heart.fill" : "heart")
-                            .foregroundColor( viewModel.checkIfLiked(currentUserId: viewModel.currentUserId, post: post) ? Color.red : Color.primary)
-                    }
-                    Text("\(post.likesCount.count)")
                     
-                    NavigationLink(destination: CommentsView(currentUserId: viewModel.currentUserId, postId: post.id)) {
+                    /*
+                     Button(action:{}){
+                         Image(systemName: "heart")
+                     }.foregroundColor(.primary)
+                     Text("\(post.likesCount.count)")
+                     */
+                    
+                    NavigationLink(destination: CommentsView( postId: post.id)) {
                         Image(systemName: "text.bubble")
                     }.foregroundColor(Color.primary)
                     Text("\(post.commentsCount.count)")
@@ -75,16 +65,15 @@ struct PostView: View {
                 }
                
             }.padding(.horizontal)
-        }.onAppear {
-            Task {
-                await viewModel.getSelectedUserPosts(id: post.userId)
-            }
+            
         }
+        
     }
-}
+ }
+    
 
 struct PostView_Previews: PreviewProvider {
     static var previews: some View {
-        PostView(viewModel: FeedViewModel(), post: Post(id: "", image: "", username: "username", avatar: "", commentsCount: ["",""], likesCount: ["",""], postDescription: "example", title: "example", userId: ""))
+        PostView(post: Post(id: "", image: "", username: "Test", avatar: "", commentsCount: [""], likesCount: [""], postDescription: "Example", title: "Example_Ttitle", userId: ""))
     }
 }

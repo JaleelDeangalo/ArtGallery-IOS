@@ -8,57 +8,18 @@
 import Foundation
 import SwiftUI
 
-struct AuthRepository {
-    
-    static let shared = AuthRepository()
-    private init() {}
-    
-    enum ApiErrors: Error {
-        case invalidURL
-        case invalidHTTPResponse
-        case badRequest400
-        case notAuthorized401
-        case forbidden403
-        case notFound404
-        case internalServerError500
-    }
+struct AuthRepository: AuthService {
     
     func login(email: String, password: String) async throws -> Token {
-        guard let url = URL(string: "https://artsketch.herokuapp.com/api/auth/login") else { throw ApiErrors.invalidURL }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = POST
-        urlRequest.addValue(Value, forHTTPHeaderField: Headers)
-        urlRequest.httpBody = try JSONEncoder().encode(LoginInput(email: email, password: password))
-        
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
-        guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }
-        guard httpResponse.statusCode != 400 else { throw ApiErrors.badRequest400 }
-        guard httpResponse.statusCode != 401 else { throw ApiErrors.notAuthorized401 }
-        guard httpResponse.statusCode != 403 else { throw ApiErrors.forbidden403 }
-        guard httpResponse.statusCode != 404 else { throw ApiErrors.notFound404 }
-        guard httpResponse.statusCode != 500 else { throw ApiErrors.internalServerError500 }
-        
-        return try JSONDecoder().decode(Token.self, from: data)
+        return try await makeAuthRequest(param: "auth/login", method: POST, token: nil, input: AuthInput(username: nil, email: email, photoUrl: nil, password: password, idToken: nil))
     }
     
     func signup(username: String, email: String, password: String) async throws -> Token {
-        guard let url = URL(string: BASE_URL + "/auth/signup") else { throw ApiErrors.invalidURL }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = POST
-        urlRequest.addValue(Value, forHTTPHeaderField: Headers)
-        urlRequest.httpBody = try JSONEncoder().encode(SignupInput(username: username, email: email, password: password))
-        
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
-        guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }
-        guard httpResponse.statusCode != 400 else { throw ApiErrors.badRequest400 }
-        guard httpResponse.statusCode != 401 else { throw ApiErrors.notAuthorized401 }
-        guard httpResponse.statusCode != 403 else { throw ApiErrors.forbidden403 }
-        guard httpResponse.statusCode != 404 else { throw ApiErrors.notFound404 }
-        guard httpResponse.statusCode != 500 else { throw ApiErrors.internalServerError500 }
-        
-        return try JSONDecoder().decode(Token.self, from: data)
+        return try await makeAuthRequest(param: "auth/signup", method: POST, token: nil, input: AuthInput(username: username, email: email, photoUrl: nil, password: password, idToken: nil))
+    }
+    
+    func googleSignIn(username: String, email: String, photoUrl: String, idToken: String) async throws -> Token {
+        return try await makeAuthRequest(param: "auth/googleLogin", method: POST, token: nil, input: AuthInput(username: username, email: email, photoUrl: photoUrl, password: nil, idToken: idToken))
     }
     
 }

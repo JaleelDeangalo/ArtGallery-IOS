@@ -8,9 +8,7 @@
 import SwiftUI
 
 struct CoreView: View {
-    @StateObject var userViewModel: UserViewModel
     init() {
-        self._userViewModel = StateObject(wrappedValue: UserViewModel())
         UITabBar.appearance().isTranslucent = false
     }
     var body: some View {
@@ -25,7 +23,6 @@ struct CoreView: View {
                 }
                 .navigationTitle("")
                 .navigationBarHidden(true)
-                .environmentObject(userViewModel)
             
             UploadView()
                 .tabItem {
@@ -35,7 +32,6 @@ struct CoreView: View {
                     }
                 }.navigationTitle("")
                 .navigationBarHidden(true)
-                .environmentObject(userViewModel)
             
             ProfileView()
                 .tabItem {
@@ -45,7 +41,6 @@ struct CoreView: View {
                     }
                 }.navigationTitle("")
                 .navigationBarHidden(true)
-                .environmentObject(userViewModel)
             
         }.accentColor(Color.red)
     }

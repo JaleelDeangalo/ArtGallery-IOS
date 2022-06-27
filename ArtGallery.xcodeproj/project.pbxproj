@@ -40,10 +40,24 @@
 		323EB95127D5A15000D6AD2A /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 323EB95027D5A15000D6AD2A /* ImagePicker.swift */; };
 		325523D927DC2A7100EEA4E4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 325523D827DC2A7100EEA4E4 /* GoogleService-Info.plist */; };
 		325523DB27DD9F0E00EEA4E4 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 325523DA27DD9F0E00EEA4E4 /* Settings.swift */; };
+		3263CF892869911D0099D759 /* MakeFeedRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3263CF882869911D0099D759 /* MakeFeedRequest.swift */; };
+		3263CF8B2869984A0099D759 /* MakeProfileRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3263CF8A2869984A0099D759 /* MakeProfileRequest.swift */; };
+		3263CF8D28699EA40099D759 /* MakeCommentRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3263CF8C28699EA40099D759 /* MakeCommentRequest.swift */; };
+		3263CF912869A6290099D759 /* MakeAuthRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3263CF902869A6290099D759 /* MakeAuthRequest.swift */; };
+		3263CF942869B3780099D759 /* CameraPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 3263CF932869B3780099D759 /* CameraPermission */; };
+		3263CF962869B3780099D759 /* MediaLibraryPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 3263CF952869B3780099D759 /* MediaLibraryPermission */; };
+		3263CF982869B3780099D759 /* PhotoLibraryPermission in Frameworks */ = {isa = PBXBuildFile; productRef = 3263CF972869B3780099D759 /* PhotoLibraryPermission */; };
 		32A3122D27E7F9ED00452269 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A3122C27E7F9ED00452269 /* EditProfileView.swift */; };
 		32A3122F27E83D4C00452269 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32A3122E27E83D4C00452269 /* UserProfile.swift */; };
+		32AE10B228023140005A02D2 /* FeedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32AE10B128023140005A02D2 /* FeedService.swift */; };
 		32B7530127EBAB7C00FA59D3 /* PostView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7530027EBAB7C00FA59D3 /* PostView.swift */; };
 		32B7530327EBB01A00FA59D3 /* CommentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32B7530227EBB01A00FA59D3 /* CommentView.swift */; };
+		32E08FCD2809E1D4002CBB39 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E08FCC2809E1D4002CBB39 /* AuthService.swift */; };
+		32E08FCF2809E226002CBB39 /* UploadService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E08FCE2809E226002CBB39 /* UploadService.swift */; };
+		32E08FD12809E856002CBB39 /* ProfileService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E08FD02809E856002CBB39 /* ProfileService.swift */; };
+		32E08FD32809EA55002CBB39 /* CommentService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E08FD22809EA55002CBB39 /* CommentService.swift */; };
+		32E08FD52809F678002CBB39 /* Likes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E08FD42809F678002CBB39 /* Likes.swift */; };
+		32E08FD72809FB5C002CBB39 /* Follow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 32E08FD62809FB5C002CBB39 /* Follow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -79,10 +93,21 @@
 		323EB95027D5A15000D6AD2A /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		325523D827DC2A7100EEA4E4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		325523DA27DD9F0E00EEA4E4 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		3263CF882869911D0099D759 /* MakeFeedRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeFeedRequest.swift; sourceTree = "<group>"; };
+		3263CF8A2869984A0099D759 /* MakeProfileRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeProfileRequest.swift; sourceTree = "<group>"; };
+		3263CF8C28699EA40099D759 /* MakeCommentRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeCommentRequest.swift; sourceTree = "<group>"; };
+		3263CF902869A6290099D759 /* MakeAuthRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MakeAuthRequest.swift; sourceTree = "<group>"; };
 		32A3122C27E7F9ED00452269 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
 		32A3122E27E83D4C00452269 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		32AE10B128023140005A02D2 /* FeedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedService.swift; sourceTree = "<group>"; };
 		32B7530027EBAB7C00FA59D3 /* PostView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostView.swift; sourceTree = "<group>"; };
 		32B7530227EBB01A00FA59D3 /* CommentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentView.swift; sourceTree = "<group>"; };
+		32E08FCC2809E1D4002CBB39 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		32E08FCE2809E226002CBB39 /* UploadService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadService.swift; sourceTree = "<group>"; };
+		32E08FD02809E856002CBB39 /* ProfileService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileService.swift; sourceTree = "<group>"; };
+		32E08FD22809EA55002CBB39 /* CommentService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentService.swift; sourceTree = "<group>"; };
+		32E08FD42809F678002CBB39 /* Likes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Likes.swift; sourceTree = "<group>"; };
+		32E08FD62809FB5C002CBB39 /* Follow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Follow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,8 +115,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3263CF962869B3780099D759 /* MediaLibraryPermission in Frameworks */,
 				32157EEE27CEF97A00F4DFC5 /* SDWebImageSwiftUI in Frameworks */,
 				32157EF127CEFA9400F4DFC5 /* FirebaseStorage in Frameworks */,
+				3263CF942869B3780099D759 /* CameraPermission in Frameworks */,
+				3263CF982869B3780099D759 /* PhotoLibraryPermission in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -117,11 +145,13 @@
 		32157EDD27CEF92E00F4DFC5 /* ArtGallery */ = {
 			isa = PBXGroup;
 			children = (
+				3263CF87286990FD0099D759 /* requestfunctions */,
 				325523D827DC2A7100EEA4E4 /* GoogleService-Info.plist */,
+				32E08FCB2809E0D3002CBB39 /* apiservices */,
 				32157EF727CEFBA600F4DFC5 /* networking */,
-				32157EF627CEFB9900F4DFC5 /* models */,
 				32157EF527CEFB9000F4DFC5 /* viewmodels */,
 				32157EF427CEFB8A00F4DFC5 /* views */,
+				32157EF627CEFB9900F4DFC5 /* models */,
 				32157EDE27CEF92E00F4DFC5 /* ArtGalleryApp.swift */,
 				32157EE027CEF92E00F4DFC5 /* ContentView.swift */,
 				32157EE227CEF93000F4DFC5 /* Assets.xcassets */,
@@ -179,6 +209,8 @@
 				32157F0C27CEFD3A00F4DFC5 /* Post.swift */,
 				32157F0E27CEFDD000F4DFC5 /* Comment.swift */,
 				32157F1827CF073900F4DFC5 /* Response.swift */,
+				32E08FD42809F678002CBB39 /* Likes.swift */,
+				32E08FD62809FB5C002CBB39 /* Follow.swift */,
 			);
 			path = models;
 			sourceTree = "<group>";
@@ -194,6 +226,29 @@
 				3218DE6627D2FAD8004309FC /* FirebaseManager.swift */,
 			);
 			path = networking;
+			sourceTree = "<group>";
+		};
+		3263CF87286990FD0099D759 /* requestfunctions */ = {
+			isa = PBXGroup;
+			children = (
+				3263CF882869911D0099D759 /* MakeFeedRequest.swift */,
+				3263CF8A2869984A0099D759 /* MakeProfileRequest.swift */,
+				3263CF8C28699EA40099D759 /* MakeCommentRequest.swift */,
+				3263CF902869A6290099D759 /* MakeAuthRequest.swift */,
+			);
+			path = requestfunctions;
+			sourceTree = "<group>";
+		};
+		32E08FCB2809E0D3002CBB39 /* apiservices */ = {
+			isa = PBXGroup;
+			children = (
+				32AE10B128023140005A02D2 /* FeedService.swift */,
+				32E08FCC2809E1D4002CBB39 /* AuthService.swift */,
+				32E08FCE2809E226002CBB39 /* UploadService.swift */,
+				32E08FD02809E856002CBB39 /* ProfileService.swift */,
+				32E08FD22809EA55002CBB39 /* CommentService.swift */,
+			);
+			path = apiservices;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -215,6 +270,9 @@
 			packageProductDependencies = (
 				32157EED27CEF97A00F4DFC5 /* SDWebImageSwiftUI */,
 				32157EF027CEFA9400F4DFC5 /* FirebaseStorage */,
+				3263CF932869B3780099D759 /* CameraPermission */,
+				3263CF952869B3780099D759 /* MediaLibraryPermission */,
+				3263CF972869B3780099D759 /* PhotoLibraryPermission */,
 			);
 			productName = ArtGallery;
 			productReference = 32157EDB27CEF92E00F4DFC5 /* ArtGallery.app */;
@@ -247,6 +305,7 @@
 			packageReferences = (
 				32157EEC27CEF97A00F4DFC5 /* XCRemoteSwiftPackageReference "SDWebImageSwiftUI" */,
 				32157EEF27CEFA9400F4DFC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				3263CF922869B3780099D759 /* XCRemoteSwiftPackageReference "PermissionsKit" */,
 			);
 			productRefGroup = 32157EDC27CEF92E00F4DFC5 /* Products */;
 			projectDirPath = "";
@@ -277,12 +336,14 @@
 			files = (
 				32157F0B27CEFCB900F4DFC5 /* User.swift in Sources */,
 				32157F1327CF00BB00F4DFC5 /* Constants.swift in Sources */,
+				3263CF912869A6290099D759 /* MakeAuthRequest.swift in Sources */,
 				32A3122F27E83D4C00452269 /* UserProfile.swift in Sources */,
 				32157F0527CEFC4500F4DFC5 /* FeedViewModel.swift in Sources */,
 				32157EFF27CEFBF800F4DFC5 /* Login.swift in Sources */,
 				32157F1927CF073900F4DFC5 /* Response.swift in Sources */,
 				322F159827E4E5D50090D115 /* UserViewModel.swift in Sources */,
 				32157F1127CEFFD300F4DFC5 /* FeedRepository.swift in Sources */,
+				32E08FD52809F678002CBB39 /* Likes.swift in Sources */,
 				32157F1F27CF0C8E00F4DFC5 /* CommentViewModel.swift in Sources */,
 				32157EF327CEFAB800F4DFC5 /* Core.swift in Sources */,
 				32157EFD27CEFBE400F4DFC5 /* Profile.swift in Sources */,
@@ -291,20 +352,29 @@
 				32157EFB27CEFBD200F4DFC5 /* Upload.swift in Sources */,
 				32157EF927CEFBB800F4DFC5 /* Feed.swift in Sources */,
 				32A3122D27E7F9ED00452269 /* EditProfileView.swift in Sources */,
+				3263CF8D28699EA40099D759 /* MakeCommentRequest.swift in Sources */,
 				32B7530127EBAB7C00FA59D3 /* PostView.swift in Sources */,
+				32AE10B228023140005A02D2 /* FeedService.swift in Sources */,
+				3263CF892869911D0099D759 /* MakeFeedRequest.swift in Sources */,
 				323EB95127D5A15000D6AD2A /* ImagePicker.swift in Sources */,
 				32157F0127CEFC0A00F4DFC5 /* Signup.swift in Sources */,
 				32157F1D27CF0C5800F4DFC5 /* CommentRepository.swift in Sources */,
 				32157F1727CF072900F4DFC5 /* UploadRepository.swift in Sources */,
+				32E08FD32809EA55002CBB39 /* CommentService.swift in Sources */,
+				32E08FD72809FB5C002CBB39 /* Follow.swift in Sources */,
+				3263CF8B2869984A0099D759 /* MakeProfileRequest.swift in Sources */,
 				32157EE127CEF92E00F4DFC5 /* ContentView.swift in Sources */,
 				3218DE6727D2FAD8004309FC /* FirebaseManager.swift in Sources */,
 				32157F0F27CEFDD000F4DFC5 /* Comment.swift in Sources */,
 				32157F0327CEFC1A00F4DFC5 /* AuthViewModel.swift in Sources */,
 				32157EDF27CEF92E00F4DFC5 /* ArtGalleryApp.swift in Sources */,
 				32B7530327EBB01A00FA59D3 /* CommentView.swift in Sources */,
+				32E08FCF2809E226002CBB39 /* UploadService.swift in Sources */,
+				32E08FD12809E856002CBB39 /* ProfileService.swift in Sources */,
 				32157F1527CF036E00F4DFC5 /* AuthRepository.swift in Sources */,
 				32157F0927CEFC8E00F4DFC5 /* ProfileVIewModel.swift in Sources */,
 				325523DB27DD9F0E00EEA4E4 /* Settings.swift in Sources */,
+				32E08FCD2809E1D4002CBB39 /* AuthService.swift in Sources */,
 				32157F0727CEFC6A00F4DFC5 /* UploadViewModel.swift in Sources */,
 				32157F2127CF179500F4DFC5 /* Comments.swift in Sources */,
 			);
@@ -440,6 +510,8 @@
 				DEVELOPMENT_TEAM = T6S3P6VTG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "#(PRODUCT_NAME) wants to use the camera for image uploads";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) wants to access to your photo library for image uploads";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -469,6 +541,8 @@
 				DEVELOPMENT_TEAM = T6S3P6VTG3;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "#(PRODUCT_NAME) wants to use the camera for image uploads";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "$(PRODUCT_NAME) wants to access to your photo library for image uploads";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -527,6 +601,14 @@
 				kind = branch;
 			};
 		};
+		3263CF922869B3780099D759 /* XCRemoteSwiftPackageReference "PermissionsKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparrowcode/PermissionsKit";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -539,6 +621,21 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 32157EEF27CEFA9400F4DFC5 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		3263CF932869B3780099D759 /* CameraPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3263CF922869B3780099D759 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = CameraPermission;
+		};
+		3263CF952869B3780099D759 /* MediaLibraryPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3263CF922869B3780099D759 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = MediaLibraryPermission;
+		};
+		3263CF972869B3780099D759 /* PhotoLibraryPermission */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3263CF922869B3780099D759 /* XCRemoteSwiftPackageReference "PermissionsKit" */;
+			productName = PhotoLibraryPermission;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

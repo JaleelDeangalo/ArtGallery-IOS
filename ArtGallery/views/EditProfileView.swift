@@ -24,7 +24,7 @@ struct EditProfileView: View {
     @Environment(\.colorScheme) private var colorScheme
     @Environment(\.presentationMode) private var presentationMode
     init(bio: String, username: String, email: String, avatar: String) {
-        self._viewModel = StateObject(wrappedValue: UploadViewModel())
+        self._viewModel = StateObject(wrappedValue: UploadViewModel(delegate: UploadRepository()))
         self.bio = bio
         self.username = username
         self.email = email
@@ -58,7 +58,7 @@ struct EditProfileView: View {
                         emailInput = email
                     }
                     
-                    if bio.isEmpty {
+                    if bioInput.isEmpty {
                         bioInput = bio
                     }
                     

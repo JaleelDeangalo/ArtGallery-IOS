@@ -14,16 +14,17 @@ struct User: Codable, Identifiable {
     let email: String
     let avatar: String
     let bio: String
-    let followers: [String] = []
-    let following: [String] = []
-    let myPosts: [Post] = []
+    let followers: [String]
+    let following: [String]
+    let posts: [Post]
+    let myPosts: [Post]
     let date: String
     
-    enum CodingKeys: String, CodingKey {
+   private enum CodingKeys: String, CodingKey {
         case id = "_id"
         case username, email, bio, avatar
         case following, followers
-        case myPosts
+        case posts, myPosts
         case date
     }
 }
@@ -35,16 +36,15 @@ struct UserInput: Codable {
     let avatar: String?
 }
 
-struct LoginInput: Codable {
+
+struct AuthInput: Codable {
+    let username: String?
     let email: String
-    let password: String
+    let photoUrl: String?
+    let password: String?
+    let idToken: String?
 }
 
-struct SignupInput: Codable {
-    let username: String
-    let email: String
-    let password: String
-}
 
 struct Token: Codable {
     let token: String

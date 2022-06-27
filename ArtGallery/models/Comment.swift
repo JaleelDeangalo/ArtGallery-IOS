@@ -14,14 +14,13 @@ struct Comment: Codable, Identifiable {
         let likes: [String]
         let comment, date, id, username: String
         let avatar: String
-        let user, postId: String
-        let v: Int
+        let userId, postId: String
 
-        enum CodingKeys: String, CodingKey {
+        private enum CodingKeys: String, CodingKey {
             case likes, comment, date
             case id = "_id"
-            case username, avatar, user, postId
-            case v = "__v"
+            case userId = "user"
+            case username, avatar, postId
         }
     
 }

@@ -9,30 +9,19 @@ import Foundation
 
 @MainActor
 final class ProfileViewModel: ObservableObject {
-
-    @Published var username: String = ""
-    @Published var avatar: String = ""
-    @Published var bio: String = ""
-    @Published var email: String = ""
-    @Published var followers: Int = 0
-    @Published var following: Int = 0
+    @Published var user: User
     
+    private let delegate: ProfileService
     
-    init() {
-        Task {
-            await getUser()
-        }
+    init(delegate: ProfileService) {
+        self.delegate = delegate
+        self.user = User(id: "", username: "", email: "", avatar: "", bio: "", followers: [], following: [], posts: [], myPosts: [], date: "")
     }
     
     func getUser() async {
         do {
-            let data = try await ProfileRepository.shared.getUser()
-            self.username = data.username
-            self.avatar = data.avatar
-            self.bio = data.bio
-            self.email = data.email
-            self.followers = data.followers.count
-            self.following = data.following.count
+            let data = try await delegate.getUser()
+            self.user = data
         } catch {
             print("getUser")
             print(error)
@@ -41,10 +30,8 @@ final class ProfileViewModel: ObservableObject {
     
     func updateUser(email: String, username: String, avatar: String, bio: String) async {
         do {
-            let data = try await ProfileRepository.shared.updateUser(email: email, username: username, avatar: avatar, bio: bio)
-            self.username = data.username
-            self.avatar = data.avatar
-            self.bio = data.bio
+            let data = try await delegate.updateUser(email: email, username: username, avatar: avatar, bio: bio)
+            self.user = data
         } catch {
             print(error)
         }

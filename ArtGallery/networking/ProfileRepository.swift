@@ -8,57 +8,20 @@
 import Foundation
 import SwiftUI
 
-struct ProfileRepository {
+struct ProfileRepository: ProfileService {
     
     @AppStorage("token") var token = ""
-    static let shared = ProfileRepository()
-    private init() {}
-    
-    enum ApiErrors: Error {
-        case invalidURL
-        case invalidHTTPResponse
-        case badRequest400
-        case notAuthorized401
-        case forbidden403
-        case notFound404
-        case internalServerError500
-    }
     
     func getUser() async throws -> User {
-        guard let url = URL(string: BASE_URL + "/user") else { throw ApiErrors.invalidURL }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = GET
-        urlRequest.addValue(Value, forHTTPHeaderField: Headers)
-        urlRequest.addValue(token, forHTTPHeaderField: Authorization)
-        
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
-        guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }
-        guard httpResponse.statusCode != 400 else { throw ApiErrors.badRequest400 }
-        guard httpResponse.statusCode != 401 else { throw ApiErrors.notAuthorized401 }
-        guard httpResponse.statusCode != 403 else { throw ApiErrors.forbidden403 }
-        guard httpResponse.statusCode != 404 else { throw ApiErrors.notFound404 }
-        guard httpResponse.statusCode != 500 else { throw ApiErrors.internalServerError500 }
-        return try JSONDecoder().decode(User.self, from: data)
-        
+        return try await makeUserRequest(param: "user", method: GET, token: token, input: nil)
     }
     
     func updateUser(email: String, username: String, avatar: String, bio: String) async throws -> User {
-        guard let url = URL(string: BASE_URL + "/user") else { throw ApiErrors.invalidURL }
-        
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = PUT
-        urlRequest.addValue(Value, forHTTPHeaderField: Headers)
-        urlRequest.addValue(token, forHTTPHeaderField: Authorization)
-        urlRequest.httpBody = try JSONEncoder().encode(UserInput(username: username, email: email, bio: bio, avatar: avatar))
-        let (data, response) = try await URLSession.shared.data(for: urlRequest)
-        guard let httpResponse = response as? HTTPURLResponse else { throw ApiErrors.invalidHTTPResponse }
-        guard httpResponse.statusCode != 400 else { throw ApiErrors.badRequest400 }
-        guard httpResponse.statusCode != 401 else { throw ApiErrors.notAuthorized401 }
-        guard httpResponse.statusCode != 403 else { throw ApiErrors.forbidden403 }
-        guard httpResponse.statusCode != 404 else { throw ApiErrors.notFound404 }
-        guard httpResponse.statusCode != 500 else { throw ApiErrors.internalServerError500 }
-        return try JSONDecoder().decode(User.self, from: data)
+        return try await makeUserRequest(param: "user", method: PUT, token: token, input: UserInput(username: username, email: email, bio: bio, avatar: avatar))
+    }
+    
+    func deleteUser() async throws {
+      try await makeProfileRequestVoid(param: "user", method: DELETE, token: token, input: nil)
     }
     
 }

@@ -10,11 +10,16 @@ import SwiftUI
 struct UploadView: View {
     @Environment(\.colorScheme) private var colorScheme
     @EnvironmentObject var userViewModel: UserViewModel
-    @StateObject var viewModel = UploadViewModel()
+    @StateObject var viewModel: UploadViewModel
     @State private var isShowingPicker = false
     @State private var image: UIImage?
     @State var titleInput: String = ""
     @State var descriptionInput: String = ""
+    
+    init() {
+        self._viewModel = StateObject(wrappedValue: UploadViewModel(delegate: UploadRepository()))
+    }
+    
     var body: some View {
         VStack {
             

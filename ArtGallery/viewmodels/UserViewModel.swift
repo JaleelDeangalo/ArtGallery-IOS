@@ -20,41 +20,45 @@ final class UserViewModel: ObservableObject {
     @Published var currentUserFollower: [String] = []
     @Published var currentUserFollowing: [String] = []
     
-    init() {
+    let repository: FeedRepository
+    
+    init(repository: FeedRepository) {
+        self.repository = repository
         Task {
         
         }
     }
     
-    func getUser() async {
-        do {
-            let data = try await FeedRepository.shared.getUser()
-            currentUsername = data.username
-            currentUserFollower = data.followers
-            currentUserFollowing = data.following
-        } catch {
-            print("getUser/ UserViewModel")
-            print(error)
-        }
-    }
-    
-    func getSelectedUser(id: String) async {
-        do {
-            let data = try await FeedRepository.shared.getSelectedUser(id: id)
-            selectedUsername = data.username
-            selectedUserAvatar = data.avatar
-            selectedUserBio = data.bio
-            selectedUserFollowers = data.followers
-        } catch {
-            print("selectedUser")
-            print(error)
-        }
-    }
+  /*
+   func getUser() async {
+       do {
+           let data = try await repository.getUser()
+           currentUsername = data.username
+           currentUserFollower = data.followers
+           currentUserFollowing = data.following
+       } catch {
+           print("getUser/ UserViewModel")
+           print(error)
+       }
+   }
+   
+   func getSelectedUser(id: String) async {
+       do {
+           let data = try await repository.getSelectedUser(id: id)
+           selectedUsername = data.username
+           selectedUserAvatar = data.avatar
+           selectedUserBio = data.bio
+           selectedUserFollowers = data.followers
+       } catch {
+           print("selectedUser")
+           print(error)
+       }
+   }
+   */
     
     func followUser(id: String) async {
         do {
-            let data = try await FeedRepository.shared.followUser(id: id)
-            message = data.Message
+           try await repository.followUser(id: id)
         } catch {
             print(error)
         }
@@ -63,8 +67,7 @@ final class UserViewModel: ObservableObject {
     
     func unfollowUser(id: String) async {
         do {
-            let data = try await FeedRepository.shared.unfollowUser(id: id)
-            message = data.Message
+            try await repository.unfollowUser(id: id)
         } catch {
             print(error)
         }
