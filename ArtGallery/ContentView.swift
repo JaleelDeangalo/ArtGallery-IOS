@@ -2,17 +2,26 @@
 //  ContentView.swift
 //  ArtGallery
 //
-//  Created by Jaleel Gilbert on 7/11/22.
+//  Created by Jaleel Gilbert on 3/1/22.
 //
-
 import SwiftUI
 
 struct ContentView: View {
+    @AppStorage("Authorization") var auth = false
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationView {
+            switch auth {
+            case true:
+                CoreView()
+            case false:
+                LoginView()
+            }
+        }.navigationViewStyle(StackNavigationViewStyle())
+
     }
+    
 }
+
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
