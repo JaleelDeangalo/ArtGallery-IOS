@@ -6,6 +6,7 @@
 //
 import Foundation
 import Firebase
+import FirebaseStorage
 final class FirebaseManager: NSObject {
     static let shared = FirebaseManager()
     

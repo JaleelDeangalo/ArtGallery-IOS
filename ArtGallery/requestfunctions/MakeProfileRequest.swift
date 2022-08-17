@@ -18,7 +18,7 @@ extension ProfileRepository {
              request.addValue(token, forHTTPHeaderField: Authorization)
          }
         
-        if request.httpMethod == PUT {
+        if method == PUT {
             guard let input = input else {
                 return User(id: "", username: "", email: "", avatar: "", bio: "", followers: [], following: [], posts: [], myPosts: [], date: "")
             }
